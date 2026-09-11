@@ -9,3 +9,7 @@
   <?= css('app/styles/styles.css?v=' . EXPANDED_HORIZONS_VERSION) ?>
 </head>
 <body data-page="<?= esc($page->id(), 'attr') ?>">
+
+  <?php // Persistent chrome (outside #swup, never re-mounted on page transitions) // ?>
+  <?php snippet('intro-bar/intro-bar') ?>
+  <?php snippet('info-panel/info-panel') ?>

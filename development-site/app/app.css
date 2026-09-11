@@ -6,6 +6,7 @@
 @theme {
   --color-ink: #171717;
   --color-paper: #f7f7f4;
+  --color-accent: #b12ab1;
 }
 
 @layer base {
@@ -38,7 +39,7 @@
 
 @layer components {
   .page-shell {
-    width: min(100% - 2rem, 72rem);
+    width: 100%;
     margin-inline: auto;
     padding-block: clamp(3rem, 8vw, 8rem);
   }

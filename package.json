@@ -25,6 +25,7 @@
     "@swup/gia-plugin": "^2.0.4",
     "@tailwindcss/cli": "^4.3.0",
     "gia": "^1.0.1",
+    "gsap": "^3.15.0",
     "regenerator-runtime": "^0.14.1",
     "swup": "^4.9.2",
     "tailwindcss": "^4.3.0",

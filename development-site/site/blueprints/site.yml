@@ -1,7 +1,55 @@
 title: Site
 
-sections:
+tabs:
   pages:
-    type: pages
     label: Pages
-    layout: list
+    sections:
+      pages:
+        type: pages
+        label: Pages
+        layout: list
+
+  info:
+    label: Info Panel
+    fields:
+      tagline:
+        type: text
+        label: Tagline
+
+      about:
+        type: textarea
+        label: About
+        buttons:
+          - bold
+          - italic
+          - link
+
+      contact:
+        type: textarea
+        label: Contact
+        buttons:
+          - bold
+          - italic
+          - link
+
+      credits:
+        type: structure
+        label: Credits
+        fields:
+          name:
+            type: text
+            label: Name
+          subtitle:
+            type: text
+            label: Subtitle
+
+      footerlinks:
+        type: structure
+        label: Footer links
+        fields:
+          label:
+            type: text
+            label: Label
+          url:
+            type: url
+            label: URL
