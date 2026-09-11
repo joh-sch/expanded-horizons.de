@@ -1,0 +1,74 @@
+@import 'tailwindcss';
+
+@source '../site/templates/**/*.php';
+@source '../site/snippets/**/*.php';
+
+@theme {
+  --color-ink: #171717;
+  --color-paper: #f7f7f4;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    color: var(--color-ink);
+    background: var(--color-paper);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .page-shell {
+    width: min(100% - 2rem, 72rem);
+    margin-inline: auto;
+    padding-block: clamp(3rem, 8vw, 8rem);
+  }
+
+  .prose-content {
+    max-width: 65ch;
+  }
+
+  .lazy {
+    display: block;
+    max-width: 100%;
+    aspect-ratio: var(--ar, auto);
+  }
+
+  .lazy.is-loading {
+    filter: blur(0.5rem);
+  }
+}
+
+.transition-fade {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out;
+}
+
+html.is-animating .transition-fade {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transition-fade {
+    transition: none;
+  }
+}

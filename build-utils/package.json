@@ -1,0 +1,14 @@
+{
+  "name": "expanded-horizons-2026-build-utils",
+  "version": "1.0.0",
+  "description": "Build utilities for the Barebone Kirby project",
+  "scripts": {
+    "create-comp": "node scripts/create-comp.js"
+  },
+  "author": "schmoll.studio",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "fs-extra": "^11.1.1"
+  }
+}

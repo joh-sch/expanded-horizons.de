@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * Local development configuration.
+ *
+ * Copy this file to config.localhost.php (or config.{your-hostname}.php)
+ * and adjust the settings for your environment.
+ *
+ * Kirby automatically loads config.{hostname}.php when the request hostname matches.
+ * The hostname is the domain without port, e.g. "localhost" or "project.test".
+ *
+ * This file is gitignored — never commit your local config.
+ */
+
+return [
+
+    'debug' => true,
+
+    'panel' => [
+        'install' => true,
+    ],
+
+];

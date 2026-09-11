@@ -1,0 +1,10 @@
+title: Default Page
+
+fields:
+  text:
+    type: textarea
+    label: Text
+    buttons:
+      - bold
+      - italic
+      - link

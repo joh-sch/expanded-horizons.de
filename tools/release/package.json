@@ -1,0 +1,14 @@
+{
+  "name": "auto-release",
+  "version": "1.1.0",
+  "description": "Drop-in git submodule for automating GitHub releases.",
+  "main": "release.js",
+  "bin": {
+    "auto-release": "./release.js"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "keywords": ["release", "github", "automation", "changelog"],
+  "license": "MIT"
+}

@@ -1,0 +1,6 @@
+[submodule "file-templates"]
+	path = file-templates
+	url = https://github.com/joh-sch/file-templates.git
+[submodule "tools/release"]
+	path = tools/release
+	url = https://github.com/joh-sch/release-tool.git

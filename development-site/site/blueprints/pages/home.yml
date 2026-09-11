@@ -1,0 +1,10 @@
+title: Home
+
+fields:
+  text:
+    type: textarea
+    label: Text
+    buttons:
+      - bold
+      - italic
+      - link
