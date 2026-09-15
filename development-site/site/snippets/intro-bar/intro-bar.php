@@ -30,12 +30,7 @@ $optionsToRender = $languageOptions ?? [];
 
   <div class="flex items-center justify-center gap-1">
     <?php // Info panel toggle btn. // ?>
-    <button
-        g-ref         ="toggleBtn"
-        type          ="button"
-        aria-expanded ="false"
-        aria-controls ="info-panel"
-        class         ="flex h-3.5 shrink-0 items-center justify-center gap-1.5 rounded-sm border border-current px-1.5">
+    <?php ob_start(); ?>
       <span g-ref="dots" class="flex items-center gap-1" aria-hidden="true">
         <svg class="h-[0.15rem] w-[0.15rem]" viewBox="0 0 0.15 0.15" fill="currentColor">
           <circle cx="0.075" cy="0.075" r="0.075" />
@@ -49,7 +44,14 @@ $optionsToRender = $languageOptions ?? [];
       </span>
       <span g-ref="closeLabel" class="hidden text-[10px] translate-y-[0.5px]" aria-hidden="true">CLOSE</span>
       <span class="sr-only">Toggle info panel</span>
-    </button>
+    <?php $toggleBtnContent = ob_get_clean();
+
+    snippet('btns/btn', [
+      'gRef'    => 'toggleBtn',
+      'attrs'   => 'aria-expanded="false" aria-controls="info-panel"',
+      'class'   => 'h-3.5 rounded-sm border border-current px-1.5',
+      'content' => $toggleBtnContent,
+    ]); ?>
 
     <?php // Lang. switch button // ?>
     <button

@@ -13,11 +13,34 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Neue Haas Grotesk';
+  src:
+    url('../assets/fonts/neue-haas/NeueHaasDisplay-Roman.woff2') format('woff2'),
+    url('../assets/fonts/neue-haas/NeueHaasDisplay-Roman.woff') format('woff'),
+    url('../assets/fonts/neue-haas/NeueHaasDisplay-Roman.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk';
+  src:
+    url('../assets/fonts/neue-haas/NeueHaasDisplay-RomanItalic.woff2') format('woff2'),
+    url('../assets/fonts/neue-haas/NeueHaasDisplay-RomanItalic.woff') format('woff'),
+    url('../assets/fonts/neue-haas/NeueHaasDisplay-RomanItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme {
   --color-ink: #171717;
   --color-paper: #f7f7f4;
   --color-accent: #4500E2;
   --font-gravity: 'ABC Gravity Variable', Helvetica, sans-serif;
+  --font-haas: 'Neue Haas Grotesk', Helvetica, sans-serif;
 }
 
 @layer base {

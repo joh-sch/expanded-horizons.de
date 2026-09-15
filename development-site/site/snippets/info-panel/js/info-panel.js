@@ -254,6 +254,7 @@ export default class InfoPanel extends Component {
     this.ref.backdrop.classList.toggle('pointer-events-none', !open);
     this.ref.backdrop.setAttribute('aria-hidden', String(!open));
     this.ref.panel.setAttribute('aria-hidden', String(!open));
+    this.ref.panel.classList.toggle('cursor-pointer', !open);
     this.ref.content.classList.toggle('opacity-0', !open);
     this.ref.content.classList.toggle('opacity-100', open);
     eventbus.emit('infoPanel:change', { open });

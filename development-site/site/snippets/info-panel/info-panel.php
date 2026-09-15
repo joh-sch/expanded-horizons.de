@@ -43,7 +43,7 @@ $footerlinks = $site->footerlinks()->toStructure();
       aria-modal    ="true"
       aria-hidden   ="true"
       style         ="transform: translateY(calc(100% - 3.5rem))"
-      class         ="fixed bottom-0 left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
+      class         ="fixed bottom-0 left-0 right-0 z-50 mx-auto w-full max-w-134 cursor-pointer rounded-2xl bg-paper px-6 py-6 shadow-lg">
 
     <div g-ref="content" class="opacity-0 transition-opacity duration-666 ease-in-out">
     <?php if ($info->isNotEmpty()): ?>
@@ -101,13 +101,12 @@ $footerlinks = $site->footerlinks()->toStructure();
       style         ="transform: translateY(100%)"
       class         ="fixed bottom-0 left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
 
-    <div g-ref="impressumContent" class="opacity-0 transition-opacity duration-3000 ease-in-out">
-      <button
-          g-ref="impressumClose"
-          type="button"
-          class="absolute right-6 top-6 text-sm font-bold tracking-wide transition-colors hover:text-accent">
-        Close
-      </button>
+    <div g-ref="impressumContent" class="opacity-0 transition-opacity duration-666 ease-in-out">
+      <?php snippet('btns/btn', [
+        'gRef'    => 'impressumClose',
+        'class'   => 'absolute right-6 top-6 h-3.5 rounded-sm border border-current px-1.5',
+        'content' => '<span class="text-[10px] translate-y-[0.5px]">Close</span>',
+      ]); ?>
 
       <?php if ($impressumPage && $impressumPage->info()->toLayouts()->isNotEmpty()): ?>
         <?php snippet('layout/layout', ['layouts' => $impressumPage->info()->toLayouts()]) ?>

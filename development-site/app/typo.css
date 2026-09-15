@@ -21,9 +21,9 @@
   }
 
   .fließtext-md {
-    font-family: "Helvetica", sans-serif;
+    font-family: var(--font-haas), "Helvetica", sans-serif;
     font-size: 1rem;
-    letter-spacing: -0.015em;
+    /* letter-spacing: -0.015em; */
     line-height: 1.175;
   }
 
