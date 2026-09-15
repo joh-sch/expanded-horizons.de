@@ -10,6 +10,8 @@ return [
         'install' => false,
     ],
 
-    'languages' => false,
+    'languages' => true,
+
+    'languages.detect' => false,
 
 ];

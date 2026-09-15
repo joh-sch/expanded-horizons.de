@@ -7,7 +7,7 @@
 // ...
 
 // Markup // ?>
-<div class="absolute inset-0 w-screen h-screen overflow-hidden">
+<div class="fixed inset-0 z-0 h-screen w-screen overflow-hidden">
 
   <?php
   // Background video //
@@ -18,6 +18,7 @@
       src="<?= url('app/assets/videos/bg-typo-anim.mp4') ?>"
       autoplay
       muted
+      loop
       playsinline
       preload="auto"></video>
 

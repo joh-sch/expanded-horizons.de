@@ -1,0 +1,42 @@
+Title: Expanded Horizons
+
+----
+
+Tagline: Eine neue Plattform zur Unterstützung junger Künstler:innen
+
+----
+
+About:
+
+Puda dolorepudae consequod eius untur most, sit aspedip icipis re incimol ecturlatem vellamus, siniatempore nonse etur, te sinis evenis ea volenet ipiduci lignam aut odis magnisit que recatest, sin non cum quod que nis et od untem rate noste sim qui natur alique maio tempos as debisi omnis dipsape rsperro totae quis ma pore, occae mo voluptatias as et am que latur, soluptae veliquasped quam, volupti beaquidusa nos que idusdam volorporates doleceptae eatinis trumqua spere, ut dem estiae
+
+----
+
+Contact:
+
+Weitere Informationen folgen
+
+----
+
+Credits:
+
+-
+  name: Deichtorhallen
+  subtitle: House of Photography
+-
+  name: Körber Stiftung
+  subtitle: ''
+
+----
+
+Footerlinks:
+
+-
+  label: Impressum
+  url: ''
+-
+  label: Datenschutz
+  url: ''
+-
+  label: Instagram
+  url: ''

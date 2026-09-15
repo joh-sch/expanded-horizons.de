@@ -1,0 +1,11 @@
+Title: Startseite
+
+----
+
+Text:
+
+Eine minimale Kirby-Grundlage für projektspezifische Inhalte und Komponenten.Text: test
+
+----
+
+Uuid: xjwvogpr1zqpa49x

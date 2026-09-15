@@ -15,7 +15,7 @@
 ///// Setup //////
 //////////////////
 
-$optionsToRender = [];
+$optionsToRender = $languageOptions ?? [];
 
 ///// Markup /////
 ////////////////// ?>
@@ -23,10 +23,10 @@ $optionsToRender = [];
 <div
     id         ="intro-bar"
     g-component="IntroBar"
-    g-options  ='<?= json_encode($optionsToRender) ?>'
+    g-options  ='<?= esc(json_encode($optionsToRender), 'attr') ?>'
     class      ="group/IntroBar fixed inset-x-0 top-2 z-40 flex items-center justify-center gap-2 px-4 text-ink">
 
-  <span class="text-[12px] font-medium sm:text-[14px] tracking-[-0.005em]"><?= esc($site->tagline()) ?></span>
+  <span g-ref="tagline" class="inline-block whitespace-nowrap text-[12px] font-medium sm:text-[14px] tracking-[-0.005em] opacity-100 transition-[opacity,width] duration-300 ease-in-out"><?= esc($site->tagline()) ?></span>
 
   <div class="flex items-center justify-center gap-1">
     <?php // Info panel toggle btn. // ?>

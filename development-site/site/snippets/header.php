@@ -13,15 +13,34 @@
 
 <body data-page="<?= esc($page->id(), 'attr') ?>">
 
+  <?php
+  $language = $kirby->language();
+  $languageOptions = [
+    'currentLanguage' => $language?->code() ?? 'de',
+    'languageUrls' => [
+      'de' => $page->url('de'),
+      'en' => $page->url('en'),
+    ],
+    'languageTaglines' => [
+      'de' => $site->content('de')->tagline()->value(),
+      'en' => $site->content('en')->tagline()->value(),
+    ],
+  ];
+  snippet('intro-bar/intro-bar', ['languageOptions' => $languageOptions]); ?>
+
+  <?php snippet('typo-bg/typo-bg'); ?>
+
   <main
       id="swup"
       data-page-id="<?= esc($page->id(), 'attr') ?>"
+      data-language="<?= esc($language?->code() ?? 'de', 'attr') ?>"
+      data-language-url-de="<?= esc($page->url('de'), 'attr') ?>"
+      data-language-url-en="<?= esc($page->url('en'), 'attr') ?>"
+      data-page-title="<?= esc($page->title() . ' | ' . $site->title(), 'attr') ?>"
       class="
         w-full mx-auto py-[clamp(3rem,8vw,8rem)] 
         opacity-100 transition-opacity duration-[250ms] ease-in-out
         motion-reduce:transition-none [html.is-animating_&]:opacity-0 
-        <?= $mainClass ?? '' ?>">
+        relative z-10 <?= $mainClass ?? '' ?>">
 
-    <?php
-    snippet('intro-bar/intro-bar');
-    snippet('info-panel/info-panel'); ?>
+    <?php snippet('info-panel/info-panel'); ?>
