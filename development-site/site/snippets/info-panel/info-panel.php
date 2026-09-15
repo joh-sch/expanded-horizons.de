@@ -42,7 +42,7 @@ $footerlinks = $site->footerlinks()->toStructure();
       aria-modal    ="true"
       aria-hidden   ="true"
       style         ="transform: translateY(calc(100% - 3.5rem))"
-      class         ="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-[33.5rem] rounded-t-2xl bg-paper px-6 py-6 shadow-lg">
+      class         ="left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
 
     <div g-ref="content" class="opacity-0 transition-opacity duration-300 ease-in-out">
     <?php if ($info->isNotEmpty()): ?>

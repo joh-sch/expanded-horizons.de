@@ -39,8 +39,8 @@
       data-page-title="<?= esc($page->title() . ' | ' . $site->title(), 'attr') ?>"
       class="
         w-full mx-auto py-[clamp(3rem,8vw,8rem)] 
-        opacity-100 transition-opacity duration-[250ms] ease-in-out
+        opacity-100 transition-opacity duration-250 ease-in-out
         motion-reduce:transition-none [html.is-animating_&]:opacity-0 
-        relative z-10 <?= $mainClass ?? '' ?>">
+        relative <?= $mainClass ?? '' ?>">
 
     <?php snippet('info-panel/info-panel'); ?>
