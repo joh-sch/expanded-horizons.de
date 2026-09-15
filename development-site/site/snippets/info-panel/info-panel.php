@@ -28,7 +28,7 @@ $footerlinks = $site->footerlinks()->toStructure();
 <div
     g-component="InfoPanel"
     g-options  ='<?= json_encode($optionsToRender) ?>'
-    class      ="group/InfoPanel">
+    class      ="group/InfoPanel relative">
 
   <div
       g-ref  ="backdrop"
@@ -99,13 +99,13 @@ $footerlinks = $site->footerlinks()->toStructure();
       aria-modal    ="true"
       aria-hidden   ="true"
       style         ="transform: translateY(100%)"
-      class         ="left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
+      class         ="relative left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
 
     <div g-ref="impressumContent" class="opacity-0 transition-opacity duration-300 ease-in-out">
       <button
           g-ref="impressumClose"
           type="button"
-          class="mb-6 text-sm font-bold tracking-wide transition-colors hover:text-accent">
+          class="absolute right-6 top-6 text-sm font-bold tracking-wide transition-colors hover:text-accent">
         Close
       </button>
 

@@ -32,7 +32,6 @@ export default class InfoPanel extends Component {
     this.handlePanelPointerEnter = this.handlePanelPointerEnter.bind(this);
     this.handlePanelPointerLeave = this.handlePanelPointerLeave.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
-    this.handleResize = this.updateTopOffset.bind(this);
   }
 
   mount() {
@@ -43,11 +42,9 @@ export default class InfoPanel extends Component {
     eventbus.off('infoPanel:toggle', this.handleToggle);
     eventbus.off('infoPanel:peek-hover', this.handlePeekHover);
     document.removeEventListener('keydown', this.handleKeydown);
-    window.removeEventListener('resize', this.handleResize);
   }
 
   init() {
-    this.updateTopOffset();
     this.setViewportPosition(this.ref.panel);
     this.setViewportPosition(this.ref.impressumPanel);
 
@@ -63,7 +60,6 @@ export default class InfoPanel extends Component {
     eventbus.on('infoPanel:toggle', this.handleToggle);
     eventbus.on('infoPanel:peek-hover', this.handlePeekHover);
     document.addEventListener('keydown', this.handleKeydown);
-    window.addEventListener('resize', this.handleResize);
   }
 
   setViewportPosition(panel) {
@@ -83,12 +79,6 @@ export default class InfoPanel extends Component {
     return Math.max(barBottom + 16, window.innerHeight - panel.offsetHeight);
   }
 
-  getOffsetParentTop(panel) {
-    const offsetParent = panel.offsetParent;
-
-    return offsetParent ? offsetParent.getBoundingClientRect().top + window.scrollY : 0;
-  }
-
   setOpenPosition(panel) {
     const top = this.getOpenTop(panel);
 
@@ -100,12 +90,13 @@ export default class InfoPanel extends Component {
   }
 
   movePanelIntoDocumentFlow(panel, top) {
-    const absoluteTop = window.scrollY + top - this.getOffsetParentTop(panel);
+    const wrapperTop = this.element.getBoundingClientRect().top + window.scrollY;
+    const absoluteTop = window.scrollY + top - wrapperTop;
 
     panel.style.position = 'absolute';
     panel.style.top = `${absoluteTop}px`;
     panel.style.bottom = 'auto';
-    this.element.style.minHeight = `${absoluteTop + panel.offsetHeight}px`;
+    this.element.style.minHeight = `${absoluteTop + panel.offsetHeight + 32}px`;
   }
 
   resetPanelToViewport(panel) {
@@ -116,17 +107,6 @@ export default class InfoPanel extends Component {
     gsap.set(panel, { y: rect.top - viewportBottomTop });
 
     return panel === this.ref.panel ? this.getClosedY() : panel.offsetHeight;
-  }
-
-  updateTopOffset() {
-    const bar = document.getElementById('intro-bar');
-    if (!bar) return;
-
-    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    const offset = bar.getBoundingClientRect().bottom + rootFontSize * 2;
-
-    this.ref.panel.style.setProperty('--panel-top-offset', `${offset}px`);
-    this.ref.impressumPanel.style.setProperty('--panel-top-offset', `${offset}px`);
   }
 
   handleToggle() {
