@@ -45,7 +45,7 @@ $footerlinks = $site->footerlinks()->toStructure();
       style         ="transform: translateY(calc(100% - 3.5rem))"
       class         ="fixed bottom-0 left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
 
-    <div g-ref="content" class="opacity-0 transition-opacity duration-300 ease-in-out">
+    <div g-ref="content" class="opacity-0 transition-opacity duration-666 ease-in-out">
     <?php if ($info->isNotEmpty()): ?>
       <?php snippet('layout/layout', ['layouts' => $info]) ?>
     <?php else: ?>
@@ -99,9 +99,9 @@ $footerlinks = $site->footerlinks()->toStructure();
       aria-modal    ="true"
       aria-hidden   ="true"
       style         ="transform: translateY(100%)"
-      class         ="fixed bottom-0 relative left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
+      class         ="fixed bottom-0 left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
 
-    <div g-ref="impressumContent" class="opacity-0 transition-opacity duration-300 ease-in-out">
+    <div g-ref="impressumContent" class="opacity-0 transition-opacity duration-3000 ease-in-out">
       <button
           g-ref="impressumClose"
           type="button"

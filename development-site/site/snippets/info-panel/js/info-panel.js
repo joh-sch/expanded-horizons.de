@@ -76,14 +76,10 @@ export default class InfoPanel extends Component {
     return Math.max(barBottom + 16, window.innerHeight - panel.offsetHeight);
   }
 
-  setOpenPosition(panel) {
-    const top = this.getOpenTop(panel);
+  getOpenY(panel) {
+    const naturalTop = window.innerHeight - panel.offsetHeight;
 
-    panel.style.position = 'fixed';
-    panel.style.top = `${top}px`;
-    panel.style.bottom = 'auto';
-
-    return top;
+    return this.getOpenTop(panel) - naturalTop;
   }
 
   movePanelIntoDocumentFlow(panel, top) {
@@ -93,6 +89,7 @@ export default class InfoPanel extends Component {
     panel.style.position = 'absolute';
     panel.style.top = `${absoluteTop}px`;
     panel.style.bottom = 'auto';
+    gsap.set(panel, { y: 0 });
     this.element.style.minHeight = `${absoluteTop + panel.offsetHeight + 32}px`;
   }
 
@@ -120,7 +117,7 @@ export default class InfoPanel extends Component {
 
     gsap.to(this.ref.panel, {
       y: event.hovering ? this.getClosedY() - this.options.hoverLift : this.getClosedY(),
-      duration: 0.2,
+      duration: 0.333,
       ease: 'power2.out',
     });
   }
@@ -162,12 +159,8 @@ export default class InfoPanel extends Component {
 
   handleKeydown(event) {
     if (event.key !== 'Escape') return;
-
-    if (this.showingImpressum) {
-      this.closeImpressum();
-    } else if (this.state.open) {
-      this.setState({ open: false });
-    }
+    if (this.showingImpressum)  this.closeImpressum();
+    else if (this.state.open)   this.setState({ open: false });
   }
 
   openImpressum() {
@@ -175,23 +168,22 @@ export default class InfoPanel extends Component {
 
     this.showingImpressum = true;
     this.isClosing = true;
-    const impressumTop = this.setOpenPosition(this.ref.impressumPanel);
+    const impressumTop = this.getOpenTop(this.ref.impressumPanel);
+    const impressumY = this.getOpenY(this.ref.impressumPanel);
     this.ref.impressumPanel.setAttribute('aria-hidden', 'false');
     this.ref.impressumContent.classList.replace('opacity-0', 'opacity-100');
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const impressumY = this.ref.impressumPanel.offsetHeight;
 
     gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel]);
-    gsap.set(this.ref.impressumPanel, { y: impressumY });
     gsap.to(this.ref.panel, {
       y: -(window.innerHeight + this.ref.panel.offsetHeight),
-      duration: reduceMotion ? 0 : 0.5,
+      duration: reduceMotion ? 0 : 0.666,
       ease: 'power3.inOut',
     });
     gsap.to(this.ref.impressumPanel, {
-      y: 0,
-      duration: reduceMotion ? 0 : 0.5,
+      y: impressumY,
+      duration: reduceMotion ? 0 : 0.666,
       ease: 'power3.inOut',
       onComplete: () => {
         this.movePanelIntoDocumentFlow(this.ref.impressumPanel, impressumTop);
@@ -210,12 +202,12 @@ export default class InfoPanel extends Component {
     gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel]);
     gsap.to(this.ref.impressumPanel, {
       y: closedY,
-      duration: reduceMotion ? 0 : 0.5,
+      duration: reduceMotion ? 0 : 0.666,
       ease: 'power3.inOut',
     });
     gsap.to(this.ref.panel, {
       y: 0,
-      duration: reduceMotion ? 0 : 0.5,
+      duration: reduceMotion ? 0 : 0.666,
       ease: 'power3.inOut',
       onComplete: () => {
         this.showingImpressum = false;
@@ -233,14 +225,14 @@ export default class InfoPanel extends Component {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     this.isClosing = !open;
+    gsap.killTweensOf(this.ref.panel);
 
     if (open) {
-      const openTop = this.setOpenPosition(this.ref.panel);
+      const openTop = this.getOpenTop(this.ref.panel);
 
-      gsap.set(this.ref.panel, { y: this.getClosedY() });
       gsap.to(this.ref.panel, {
-        y: 0,
-        duration: reduceMotion ? 0 : 0.5,
+        y: this.getOpenY(this.ref.panel),
+        duration: reduceMotion ? 0 : 0.666,
         ease: 'power3.out',
         onComplete: () => this.movePanelIntoDocumentFlow(this.ref.panel, openTop),
       });
@@ -249,7 +241,7 @@ export default class InfoPanel extends Component {
 
       gsap.to(this.ref.panel, {
         y: closedY,
-        duration: reduceMotion ? 0 : 0.5,
+        duration: reduceMotion ? 0 : 0.666,
         ease: 'power3.out',
         onComplete: () => {
           this.isClosing = false;
