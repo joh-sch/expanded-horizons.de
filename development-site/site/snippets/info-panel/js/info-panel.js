@@ -45,9 +45,6 @@ export default class InfoPanel extends Component {
   }
 
   init() {
-    this.setViewportPosition(this.ref.panel);
-    this.setViewportPosition(this.ref.impressumPanel);
-
     gsap.set(this.ref.panel, { y: this.getClosedY() });
     gsap.set(this.ref.impressumPanel, { y: this.ref.impressumPanel.offsetHeight });
 

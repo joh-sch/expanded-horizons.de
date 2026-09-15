@@ -43,7 +43,7 @@ $footerlinks = $site->footerlinks()->toStructure();
       aria-modal    ="true"
       aria-hidden   ="true"
       style         ="transform: translateY(calc(100% - 3.5rem))"
-      class         ="left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
+      class         ="fixed bottom-0 left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
 
     <div g-ref="content" class="opacity-0 transition-opacity duration-300 ease-in-out">
     <?php if ($info->isNotEmpty()): ?>
@@ -99,7 +99,7 @@ $footerlinks = $site->footerlinks()->toStructure();
       aria-modal    ="true"
       aria-hidden   ="true"
       style         ="transform: translateY(100%)"
-      class         ="relative left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
+      class         ="fixed bottom-0 relative left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
 
     <div g-ref="impressumContent" class="opacity-0 transition-opacity duration-300 ease-in-out">
       <button

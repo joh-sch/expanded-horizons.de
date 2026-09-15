@@ -238,6 +238,9 @@
   .right-\[-0\.35em\] {
     right: -0.35em;
   }
+  .bottom-0 {
+    bottom: 0px;
+  }
   .left-0 {
     left: 0px;
   }
