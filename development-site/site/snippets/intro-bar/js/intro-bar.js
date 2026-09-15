@@ -51,10 +51,14 @@ export default class IntroBar extends Component {
       logStyles: defaultLogStyles,
     };
 
+    this.toggleHoverSuppressed = false;
+
     // Custom event hdls. //
     ////////////////////////
 
     this.handleToggleClick = this.handleToggleClick.bind(this);
+    this.handleTogglePointerEnter = this.handleTogglePointerEnter.bind(this);
+    this.handleTogglePointerLeave = this.handleTogglePointerLeave.bind(this);
     this.handlePanelChange = this.handlePanelChange.bind(this);
     this.handleLangToggleClick = this.handleLangToggleClick.bind(this);
   }
@@ -82,6 +86,8 @@ export default class IntroBar extends Component {
 
   init() {
     this.ref.toggleBtn.addEventListener("click", this.handleToggleClick);
+    this.ref.toggleBtn.addEventListener("pointerenter", this.handleTogglePointerEnter);
+    this.ref.toggleBtn.addEventListener("pointerleave", this.handleTogglePointerLeave);
     this.ref.langToggleBtn.addEventListener("click", this.handleLangToggleClick);
     eventbus.on("infoPanel:change", this.handlePanelChange);
 
@@ -92,7 +98,23 @@ export default class IntroBar extends Component {
   //////////////////
 
   handleToggleClick() {
+    if (this.state.open) {
+      this.toggleHoverSuppressed = true;
+      eventbus.emit("infoPanel:peek-hover", { hovering: false });
+    }
+
     eventbus.emit("infoPanel:toggle");
+  }
+
+  handleTogglePointerEnter() {
+    if (!this.toggleHoverSuppressed) {
+      eventbus.emit("infoPanel:peek-hover", { hovering: true });
+    }
+  }
+
+  handleTogglePointerLeave() {
+    this.toggleHoverSuppressed = false;
+    eventbus.emit("infoPanel:peek-hover", { hovering: false });
   }
 
   handlePanelChange(event) {
