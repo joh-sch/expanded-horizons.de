@@ -30,7 +30,7 @@ $footerlinks = $site->footerlinks()->toStructure();
 
   <div
       g-ref  ="backdrop"
-      class  ="fixed inset-0 z-40 bg-ink/40 opacity-0 pointer-events-none transition-opacity duration-300"
+      class  ="fixed inset-0 z-40 pointer-events-none"
       aria-hidden="true">
   </div>
 
@@ -40,15 +40,16 @@ $footerlinks = $site->footerlinks()->toStructure();
       role          ="dialog"
       aria-modal    ="true"
       aria-hidden   ="true"
-      class         ="fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[calc(100%-6rem)] w-full max-w-xl translate-y-[calc(100%-3.5rem)] overflow-y-auto rounded-t-2xl bg-paper px-6 py-6 shadow-lg">
+      style         ="transform: translateY(calc(100% - 3.5rem))"
+      class         ="fixed inset-x-0 bottom-0 z-50 mx-auto h-[calc(100%-var(--panel-top-offset,6rem))] w-full max-w-xl overflow-y-auto rounded-t-2xl bg-paper px-6 py-6 shadow-lg">
 
     <h2 class="text-sm font-bold tracking-wide">About</h2>
-    <div class="prose-content mt-2 text-sm">
+    <div class="mt-2 max-w-[65ch] text-sm">
       <?= $site->about()->kt() ?>
     </div>
 
     <h2 class="mt-8 text-sm font-bold tracking-wide">Contact</h2>
-    <div class="prose-content mt-2 text-sm">
+    <div class="mt-2 max-w-[65ch] text-sm">
       <?= esc($site->contact()->or('more coming soon')) ?>
     </div>
 

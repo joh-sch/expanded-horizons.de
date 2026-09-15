@@ -54,6 +54,7 @@ export default class InfoPanel extends Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleBackdropClick = this.handleBackdropClick.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
+    this.handleResize = this.updateTopOffset.bind(this);
   }
 
   ////////////// Mount ///////////////
@@ -75,17 +76,20 @@ export default class InfoPanel extends Component {
 
     // Global listener de-registration //
     document.removeEventListener("keydown", this.handleKeydown);
+    window.removeEventListener("resize", this.handleResize);
   }
 
   ////////////// Init. ///////////////
   ////////////////////////////////////
 
   init() {
+    this.updateTopOffset();
     gsap.set(this.ref.panel, { y: this.getClosedY() });
 
     this.ref.backdrop.addEventListener("click", this.handleBackdropClick);
     eventbus.on("infoPanel:toggle", this.handleToggle);
     document.addEventListener("keydown", this.handleKeydown);
+    window.addEventListener("resize", this.handleResize);
   }
 
   // Helpers ///////
@@ -93,6 +97,17 @@ export default class InfoPanel extends Component {
 
   getClosedY() {
     return Math.max(this.ref.panel.offsetHeight - this.options.peekHeight, 0);
+  }
+
+  updateTopOffset() {
+    const bar = document.getElementById("intro-bar");
+    if (!bar) return;
+
+    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const gap = rootFontSize * 2; // 2rem below the top bar
+    const offset = bar.getBoundingClientRect().bottom + gap;
+
+    this.ref.panel.style.setProperty("--panel-top-offset", `${offset}px`);
   }
 
   // Event hdls. ///
@@ -126,8 +141,6 @@ export default class InfoPanel extends Component {
         ease: "power3.out",
       });
 
-      this.ref.backdrop.classList.toggle("opacity-100", open);
-      this.ref.backdrop.classList.toggle("opacity-0", !open);
       this.ref.backdrop.classList.toggle("pointer-events-auto", open);
       this.ref.backdrop.classList.toggle("pointer-events-none", !open);
 

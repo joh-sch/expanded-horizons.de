@@ -31,5 +31,5 @@ if ($style !== '') $styles[] = rtrim($style, ';');
   <?= $sizes ? 'data-sizes="' . esc($sizes, 'attr') . '"' : '' ?>
   alt="<?= esc($alt, 'attr') ?>"
   decoding="async"
-  class="lazy <?= esc($class, 'attr') ?>"
+  class="lazy block max-w-full aspect-[var(--ar,auto)] [&.is-loading]:blur-[0.5rem] <?= esc($class, 'attr') ?>"
   <?= $styles ? 'style="' . esc(implode('; ', $styles), 'attr') . '"' : '' ?>>

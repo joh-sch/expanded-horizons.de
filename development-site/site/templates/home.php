@@ -1,14 +1,6 @@
-<?php snippet('header') ?>
+<?php snippet('header', ['mainClass' => 'bg-accent min-h-screen text-ink']) ?>
 
-<?php // Main content // ?>
-<main id="swup" data-page-id="<?= esc($page->id(), 'attr') ?>" class="page-shell transition-fade bg-accent min-h-screen text-ink">
-  <h1><?= esc($page->title()) ?></h1>
-
-  <?php if ($page->text()->isNotEmpty()): ?>
-    <div class="prose-content">
-      <?= $page->text()->kt() ?>
-    </div>
-  <?php endif ?>
-</main>
+<?php // Home content // ?>
+<?php snippet('typo-bg/typo-bg') ?>
 
 <?php snippet('footer') ?>

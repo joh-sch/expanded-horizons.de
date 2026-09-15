@@ -3,10 +3,23 @@
 @source '../site/templates/**/*.php';
 @source '../site/snippets/**/*.php';
 
+@font-face {
+  font-family: 'ABC Gravity Variable';
+  src:
+    url('../assets/fonts/ABCGravityVariable-Trial.woff2') format('woff2-variations'),
+    url('../assets/fonts/ABCGravityVariable-Trial.woff2') format('woff2'),
+    url('../assets/fonts/ABCGravityVariable-Trial.woff') format('woff'),
+    url('../assets/fonts/ABCGravityVariable-Trial.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-ink: #171717;
   --color-paper: #f7f7f4;
-  --color-accent: #b12ab1;
+  --color-accent: #4500E2;
+  --font-gravity: 'ABC Gravity Variable', Helvetica, sans-serif;
 }
 
 @layer base {
@@ -19,7 +32,16 @@
   html {
     color: var(--color-ink);
     background: var(--color-paper);
-    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-family: Helvetica, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-gravity);
   }
 
   body {
@@ -34,42 +56,5 @@
   select:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 3px;
-  }
-}
-
-@layer components {
-  .page-shell {
-    width: 100%;
-    margin-inline: auto;
-    padding-block: clamp(3rem, 8vw, 8rem);
-  }
-
-  .prose-content {
-    max-width: 65ch;
-  }
-
-  .lazy {
-    display: block;
-    max-width: 100%;
-    aspect-ratio: var(--ar, auto);
-  }
-
-  .lazy.is-loading {
-    filter: blur(0.5rem);
-  }
-}
-
-.transition-fade {
-  opacity: 1;
-  transition: opacity 250ms ease-in-out;
-}
-
-html.is-animating .transition-fade {
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .transition-fade {
-    transition: none;
   }
 }

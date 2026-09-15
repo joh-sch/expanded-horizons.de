@@ -1,3 +1,5 @@
+</main>
+
   <?php // Scripts // ?>
   <script src="<?= url('app/app.min.js') ?>?v=<?= EXPANDED_HORIZONS_VERSION ?>" defer></script>
 
