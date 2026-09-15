@@ -42,7 +42,7 @@ $footerlinks = $site->footerlinks()->toStructure();
       aria-modal    ="true"
       aria-hidden   ="true"
       style         ="transform: translateY(calc(100% - 3.5rem))"
-      class         ="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-xl rounded-t-2xl bg-paper px-6 py-6 shadow-lg">
+      class         ="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-[33.5rem] rounded-t-2xl bg-paper px-6 py-6 shadow-lg">
 
     <div g-ref="content" class="opacity-0 transition-opacity duration-300 ease-in-out">
     <?php if ($info->isNotEmpty()): ?>
@@ -50,11 +50,7 @@ $footerlinks = $site->footerlinks()->toStructure();
         <?php foreach ($layout->columns() as $column): ?>
           <div class="max-w-[65ch] text-sm">
             <?php foreach ($column->blocks() as $block): ?>
-              <?php if ($block->type() === 'heading'): ?>
-                <h2 class="mt-8 first:mt-0 text-sm font-bold tracking-wide"><?= esc($block->text()) ?></h2>
-              <?php elseif ($block->type() === 'text'): ?>
-                <div class="mt-2"><?= $block->text()->kt() ?></div>
-              <?php endif ?>
+              <?= $block ?>
             <?php endforeach ?>
           </div>
         <?php endforeach ?>

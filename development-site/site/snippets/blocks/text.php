@@ -1,2 +1,5 @@
 <?php /** @var \Kirby\Cms\Block $block */ ?>
-<?= $block->text();
+
+<div class="fließtext-md">
+  <?= $block->text(); ?>
+</div>

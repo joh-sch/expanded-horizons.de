@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './typo.css';
 
 @source '../site/templates/**/*.php';
 @source '../site/snippets/**/*.php';
@@ -6,10 +7,7 @@
 @font-face {
   font-family: 'ABC Gravity Variable';
   src:
-    url('../assets/fonts/ABCGravityVariable-Trial.woff2') format('woff2-variations'),
-    url('../assets/fonts/ABCGravityVariable-Trial.woff2') format('woff2'),
-    url('../assets/fonts/ABCGravityVariable-Trial.woff') format('woff'),
-    url('../assets/fonts/ABCGravityVariable-Trial.ttf') format('truetype');
+    url('../assets/fonts/ABCGravityUprightVariableUnlicensedTrial-Regular.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;

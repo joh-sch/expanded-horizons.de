@@ -1,0 +1,29 @@
+@layer components {
+  .text-hdl-lg {
+    font-family: var(--font-gravity);
+    /* font-size: var(--text-hdl-lg-size, 1em); */
+    font-size: 21px;
+    line-height: 1;
+  }
+
+  .text-hdl-md {
+    font-family: var(--font-gravity);
+    /* font-size: var(--text-hdl-md-size, 1em); */
+    font-size: 29px;
+    line-height: 1;
+  }
+
+  .text-hdl-sm {
+    font-family: var(--font-gravity);
+    /* font-size: var(--text-hdl-sm-size, 1em); */
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  .fließtext-md {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 1rem;
+    letter-spacing: -0.015em;
+    line-height: 1.175;
+  }
+}
