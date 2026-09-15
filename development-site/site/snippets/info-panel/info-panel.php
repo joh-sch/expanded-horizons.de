@@ -17,6 +17,7 @@
 //////////////////
 
 $optionsToRender = [];
+$info = $site->info()->toLayouts();
 $credits = $site->credits()->toStructure();
 $footerlinks = $site->footerlinks()->toStructure();
 
@@ -44,15 +45,31 @@ $footerlinks = $site->footerlinks()->toStructure();
       class         ="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-xl rounded-t-2xl bg-paper px-6 py-6 shadow-lg">
 
     <div g-ref="content" class="opacity-0 transition-opacity duration-300 ease-in-out">
-    <h2 class="text-sm font-bold tracking-wide">About</h2>
-    <div class="mt-2 max-w-[65ch] text-sm">
-      <?= $site->about()->kt() ?>
-    </div>
+    <?php if ($info->isNotEmpty()): ?>
+      <?php foreach ($info as $layout): ?>
+        <?php foreach ($layout->columns() as $column): ?>
+          <div class="max-w-[65ch] text-sm">
+            <?php foreach ($column->blocks() as $block): ?>
+              <?php if ($block->type() === 'heading'): ?>
+                <h2 class="mt-8 first:mt-0 text-sm font-bold tracking-wide"><?= esc($block->text()) ?></h2>
+              <?php elseif ($block->type() === 'text'): ?>
+                <div class="mt-2"><?= $block->text()->kt() ?></div>
+              <?php endif ?>
+            <?php endforeach ?>
+          </div>
+        <?php endforeach ?>
+      <?php endforeach ?>
+    <?php else: ?>
+      <h2 class="text-sm font-bold tracking-wide">About</h2>
+      <div class="mt-2 max-w-[65ch] text-sm">
+        <?= $site->about()->kt() ?>
+      </div>
 
-    <h2 class="mt-8 text-sm font-bold tracking-wide">Contact</h2>
-    <div class="mt-2 max-w-[65ch] text-sm">
-      <?= esc($site->contact()->or('more coming soon')) ?>
-    </div>
+      <h2 class="mt-8 text-sm font-bold tracking-wide">Contact</h2>
+      <div class="mt-2 max-w-[65ch] text-sm">
+        <?= esc($site->contact()->or('more coming soon')) ?>
+      </div>
+    <?php endif ?>
 
     <?php if ($credits->isNotEmpty()): ?>
       <div class="mt-10 text-xs">

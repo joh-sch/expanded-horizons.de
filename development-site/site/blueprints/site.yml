@@ -16,21 +16,32 @@ tabs:
         type: text
         label: Tagline
 
+      info:
+        type: layout
+        label: Info content
+        layouts:
+          - '1/1'
+        fieldsets:
+          - heading
+          - text
+
       about:
         type: textarea
-        label: About
+        label: About (legacy)
         buttons:
           - bold
           - italic
           - link
+        help: Used only until Info content is populated.
 
       contact:
         type: textarea
-        label: Contact
+        label: Contact (legacy)
         buttons:
           - bold
           - italic
           - link
+        help: Used only until Info content is populated.
 
       credits:
         type: structure
