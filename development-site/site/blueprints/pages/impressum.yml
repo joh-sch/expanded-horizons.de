@@ -1,0 +1,12 @@
+title: Impressum
+
+fields:
+  info:
+    type: layout
+    label: Impressum content
+    layouts:
+      - '1/1'
+    fieldsets:
+      - heading
+      - text
+      - link

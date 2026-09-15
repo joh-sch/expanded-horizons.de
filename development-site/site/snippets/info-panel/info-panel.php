@@ -18,6 +18,7 @@
 
 $optionsToRender = [];
 $info = $site->info()->toLayouts();
+$impressumPage = $kirby->page('impressum');
 $credits = $site->credits()->toStructure();
 $footerlinks = $site->footerlinks()->toStructure();
 
@@ -46,15 +47,7 @@ $footerlinks = $site->footerlinks()->toStructure();
 
     <div g-ref="content" class="opacity-0 transition-opacity duration-300 ease-in-out">
     <?php if ($info->isNotEmpty()): ?>
-      <?php foreach ($info as $layout): ?>
-        <?php foreach ($layout->columns() as $column): ?>
-          <div class="max-w-[65ch] text-sm">
-            <?php foreach ($column->blocks() as $block): ?>
-              <?= $block ?>
-            <?php endforeach ?>
-          </div>
-        <?php endforeach ?>
-      <?php endforeach ?>
+      <?php snippet('layout/layout', ['layouts' => $info]) ?>
     <?php else: ?>
       <h2 class="text-sm font-bold tracking-wide">About</h2>
       <div class="mt-2 max-w-[65ch] text-sm">
@@ -84,10 +77,41 @@ $footerlinks = $site->footerlinks()->toStructure();
     <?php if ($footerlinks->isNotEmpty()): ?>
       <ul class="mt-10 flex flex-wrap gap-x-4 gap-y-1 text-xs font-bold tracking-wide">
         <?php foreach ($footerlinks as $link): ?>
-          <li><a href="<?= esc($link->url(), 'attr') ?>"><?= esc($link->label()) ?></a></li>
+          <?php $isImpressum = strtolower($link->label()->value()) === 'impressum'; ?>
+          <li>
+            <a
+                href="<?= esc($isImpressum && $impressumPage ? $impressumPage->url() : $link->url(), 'attr') ?>"
+                <?= $isImpressum ? 'data-info-panel-target="impressum"' : '' ?>>
+              <?= esc($link->label()) ?>
+            </a>
+          </li>
         <?php endforeach ?>
       </ul>
     <?php endif ?>
+    </div>
+
+  </div>
+
+  <div
+      id            ="impressum-panel"
+      g-ref         ="impressumPanel"
+      role          ="dialog"
+      aria-modal    ="true"
+      aria-hidden   ="true"
+      style         ="transform: translateY(100%)"
+      class         ="left-0 right-0 z-50 mx-auto w-full max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
+
+    <div g-ref="impressumContent" class="opacity-0 transition-opacity duration-300 ease-in-out">
+      <button
+          g-ref="impressumClose"
+          type="button"
+          class="mb-6 text-sm font-bold tracking-wide transition-colors hover:text-accent">
+        Close
+      </button>
+
+      <?php if ($impressumPage && $impressumPage->info()->toLayouts()->isNotEmpty()): ?>
+        <?php snippet('layout/layout', ['layouts' => $impressumPage->info()->toLayouts()]) ?>
+      <?php endif ?>
     </div>
 
   </div>

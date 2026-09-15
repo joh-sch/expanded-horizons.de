@@ -10,6 +10,14 @@ Info: [{"attrs":[],"columns":[{"blocks":[{"content":{"level":"h2","text":"Expand
 
 ----
 
+Footerlinks:
+
+- 
+  label: Impressum
+  url: ""
+
+----
+
 About: 
 
 ----
@@ -19,7 +27,3 @@ Contact:
 ----
 
 Credits: 
-
-----
-
-Footerlinks: 

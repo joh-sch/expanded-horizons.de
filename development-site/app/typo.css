@@ -21,9 +21,16 @@
   }
 
   .fließtext-md {
-    font-family: 'Helvetica', sans-serif;
+    font-family: "Helvetica", sans-serif;
     font-size: 1rem;
     letter-spacing: -0.015em;
     line-height: 1.175;
+  }
+
+  .fließtext-md p {
+    margin-bottom: 1em;
+  }
+  .fließtext-md p:last-child {
+    margin-bottom: 0;
   }
 }

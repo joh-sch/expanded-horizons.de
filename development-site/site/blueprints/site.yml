@@ -25,3 +25,14 @@ tabs:
           - heading
           - text
           - link
+
+      footerlinks:
+        type: structure
+        label: Footer links
+        fields:
+          label:
+            type: text
+            label: Label
+          url:
+            type: url
+            label: URL

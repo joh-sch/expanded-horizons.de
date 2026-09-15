@@ -1,125 +1,86 @@
-////// Lib. //////
-//////////////////
-
-import Component from "gia/Component";
-import eventbus from "gia/eventbus";
-import { gsap } from "gsap";
-
-///// Assets /////
-//////////////////
-
-// Default log styles
-
-const defaultLogStyles = {
-  default: "#6682d6",
-  action: "#c7d0ff",
-  event: "#97a5ce",
-  warning: "#ffaf00",
-  error: "#ff3232",
-  success: "#00c853",
-};
-
-// Comp. class ///
-//////////////////
+import Component from 'gia/Component';
+import eventbus from 'gia/eventbus';
+import { gsap } from 'gsap';
 
 export default class InfoPanel extends Component {
-  /////////// Constructor ////////////
-  ////////////////////////////////////
-
   constructor(el, options) {
     super(el);
-
-    //// DOM references ////
-    ////////////////////////
 
     this.ref = {
       backdrop: null,
       panel: null,
       content: null,
+      impressumPanel: null,
+      impressumContent: null,
+      impressumClose: null,
     };
 
-    /////// Options ////////
-    ////////////////////////
-
     this.options = {
-      name: "InfoPanel",
       peekHeight: 56,
       hoverLift: 16,
       ...options,
-      logs: false,
-      logStyles: defaultLogStyles,
     };
 
     this.isClosing = false;
-
-    // Custom event hdls. //
-    ////////////////////////
+    this.showingImpressum = false;
 
     this.handleToggle = this.handleToggle.bind(this);
     this.handlePeekHover = this.handlePeekHover.bind(this);
     this.handleBackdropClick = this.handleBackdropClick.bind(this);
     this.handlePanelClick = this.handlePanelClick.bind(this);
+    this.handleImpressumClose = this.handleImpressumClose.bind(this);
     this.handlePanelPointerEnter = this.handlePanelPointerEnter.bind(this);
     this.handlePanelPointerLeave = this.handlePanelPointerLeave.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
     this.handleResize = this.updateTopOffset.bind(this);
   }
 
-  ////////////// Mount ///////////////
-  ////////////////////////////////////
-
   mount() {
-    if (this.options.logs) console.warn("Mounting:", this.options.name);
     this.init();
   }
 
-  ///////////// Unmount //////////////
-  ////////////////////////////////////
-
   unmount() {
-    if (this.options.logs) console.warn("Unmounting:", this.options.name);
-
-    // Eventbus listener de-registration //
-    eventbus.off("infoPanel:toggle", this.handleToggle);
-    eventbus.off("infoPanel:peek-hover", this.handlePeekHover);
-
-    // Global listener de-registration //
-    document.removeEventListener("keydown", this.handleKeydown);
-    window.removeEventListener("resize", this.handleResize);
+    eventbus.off('infoPanel:toggle', this.handleToggle);
+    eventbus.off('infoPanel:peek-hover', this.handlePeekHover);
+    document.removeEventListener('keydown', this.handleKeydown);
+    window.removeEventListener('resize', this.handleResize);
   }
-
-  ////////////// Init. ///////////////
-  ////////////////////////////////////
 
   init() {
     this.updateTopOffset();
-    this.ref.panel.style.position = "fixed";
-    this.ref.panel.style.bottom = "0";
-    gsap.set(this.ref.panel, { y: this.getClosedY() });
+    this.setViewportPosition(this.ref.panel);
+    this.setViewportPosition(this.ref.impressumPanel);
 
-    this.ref.backdrop.addEventListener("click", this.handleBackdropClick);
-    this.ref.panel.addEventListener("click", this.handlePanelClick);
-    this.ref.panel.addEventListener("pointerenter", this.handlePanelPointerEnter);
-    this.ref.panel.addEventListener("pointerleave", this.handlePanelPointerLeave);
-    eventbus.on("infoPanel:toggle", this.handleToggle);
-    eventbus.on("infoPanel:peek-hover", this.handlePeekHover);
-    document.addEventListener("keydown", this.handleKeydown);
-    window.addEventListener("resize", this.handleResize);
+    gsap.set(this.ref.panel, { y: this.getClosedY() });
+    gsap.set(this.ref.impressumPanel, { y: this.ref.impressumPanel.offsetHeight });
+
+    this.ref.backdrop.addEventListener('click', this.handleBackdropClick);
+    this.ref.panel.addEventListener('click', this.handlePanelClick, true);
+    this.ref.panel.addEventListener('pointerenter', this.handlePanelPointerEnter);
+    this.ref.panel.addEventListener('pointerleave', this.handlePanelPointerLeave);
+    this.ref.impressumPanel.addEventListener('click', this.handlePanelClick, true);
+    this.ref.impressumClose.addEventListener('click', this.handleImpressumClose);
+    eventbus.on('infoPanel:toggle', this.handleToggle);
+    eventbus.on('infoPanel:peek-hover', this.handlePeekHover);
+    document.addEventListener('keydown', this.handleKeydown);
+    window.addEventListener('resize', this.handleResize);
   }
 
-  // Helpers ///////
-  //////////////////
+  setViewportPosition(panel) {
+    panel.style.position = 'fixed';
+    panel.style.bottom = '0';
+    panel.style.top = 'auto';
+  }
 
   getClosedY() {
     return Math.max(this.ref.panel.offsetHeight - this.options.peekHeight, 0);
   }
 
   getOpenTop() {
-    const bar = document.getElementById("intro-bar");
+    const bar = document.getElementById('intro-bar');
     const barBottom = bar?.getBoundingClientRect().bottom || 0;
-    const minimumTop = barBottom + 16;
 
-    return Math.max(minimumTop, window.innerHeight - this.ref.panel.offsetHeight);
+    return Math.max(barBottom + 16, window.innerHeight - this.ref.panel.offsetHeight);
   }
 
   getOffsetParentTop() {
@@ -131,9 +92,9 @@ export default class InfoPanel extends Component {
   setOpenPosition() {
     const top = this.getOpenTop();
 
-    this.ref.panel.style.position = "fixed";
+    this.ref.panel.style.position = 'fixed';
     this.ref.panel.style.top = `${top}px`;
-    this.ref.panel.style.bottom = "auto";
+    this.ref.panel.style.bottom = 'auto';
 
     return top;
   }
@@ -141,59 +102,77 @@ export default class InfoPanel extends Component {
   movePanelIntoDocumentFlow(top) {
     const absoluteTop = window.scrollY + top - this.getOffsetParentTop();
 
-    this.ref.panel.style.position = "absolute";
+    this.ref.panel.style.position = 'absolute';
     this.ref.panel.style.top = `${absoluteTop}px`;
-    this.ref.panel.style.bottom = "auto";
+    this.ref.panel.style.bottom = 'auto';
     this.element.style.minHeight = `${absoluteTop + this.ref.panel.offsetHeight}px`;
   }
 
   resetPanelToViewport() {
     const rect = this.ref.panel.getBoundingClientRect();
-    const closedY = this.getClosedY();
     const viewportBottomTop = window.innerHeight - this.ref.panel.offsetHeight;
 
-    this.ref.panel.style.position = "fixed";
-    this.ref.panel.style.top = "auto";
-    this.ref.panel.style.bottom = "0";
+    this.setViewportPosition(this.ref.panel);
     gsap.set(this.ref.panel, { y: rect.top - viewportBottomTop });
 
-    return closedY;
+    return this.getClosedY();
   }
 
   updateTopOffset() {
-    const bar = document.getElementById("intro-bar");
+    const bar = document.getElementById('intro-bar');
     if (!bar) return;
 
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    const gap = rootFontSize * 2; // 2rem below the top bar
-    const offset = bar.getBoundingClientRect().bottom + gap;
+    const offset = bar.getBoundingClientRect().bottom + rootFontSize * 2;
 
-    this.ref.panel.style.setProperty("--panel-top-offset", `${offset}px`);
+    this.ref.panel.style.setProperty('--panel-top-offset', `${offset}px`);
+    this.ref.impressumPanel.style.setProperty('--panel-top-offset', `${offset}px`);
   }
 
-  // Event hdls. ///
-  //////////////////
-
   handleToggle() {
+    if (this.showingImpressum) {
+      this.closeImpressum();
+      return;
+    }
+
     this.setState({ open: !this.state.open });
   }
 
   handlePeekHover(event) {
-    if (this.state.open || this.isClosing) return;
+    if (this.state.open || this.isClosing || this.showingImpressum) return;
 
     gsap.to(this.ref.panel, {
       y: event.hovering ? this.getClosedY() - this.options.hoverLift : this.getClosedY(),
       duration: 0.2,
-      ease: "power2.out",
+      ease: 'power2.out',
     });
   }
 
   handleBackdropClick() {
+    if (this.showingImpressum) {
+      this.closeImpressum();
+      return;
+    }
+
     this.setState({ open: false });
   }
 
-  handlePanelClick() {
-    if (!this.state.open) this.setState({ open: true });
+  handlePanelClick(event) {
+    const impressumLink = event.target.closest('[data-info-panel-target="impressum"]');
+
+    if (impressumLink) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      this.openImpressum();
+      return;
+    }
+
+    if (!this.showingImpressum && !this.state.open) this.setState({ open: true });
+  }
+
+  handleImpressumClose(event) {
+    event.stopPropagation();
+    this.closeImpressum();
   }
 
   handlePanelPointerEnter() {
@@ -205,55 +184,107 @@ export default class InfoPanel extends Component {
   }
 
   handleKeydown(event) {
-    if (event.key === "Escape" && this.state.open) this.setState({ open: false });
-  }
+    if (event.key !== 'Escape') return;
 
-  /////////// State mgmt. ////////////
-  ////////////////////////////////////
-
-  stateChange(changes) {
-    if (this.options.logs) console.log("State change:", changes);
-
-    if ("open" in changes) {
-      const open = changes.open;
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      this.isClosing = !open;
-
-      if (open) {
-        const openTop = this.setOpenPosition();
-
-        gsap.set(this.ref.panel, { y: this.getClosedY() });
-        gsap.to(this.ref.panel, {
-          y: 0,
-          duration: reduceMotion ? 0 : 0.5,
-          ease: "power3.out",
-          onComplete: () => this.movePanelIntoDocumentFlow(openTop),
-        });
-      } else {
-        const closedY = this.resetPanelToViewport();
-
-        gsap.to(this.ref.panel, {
-          y: closedY,
-          duration: reduceMotion ? 0 : 0.5,
-          ease: "power3.out",
-          onComplete: () => {
-            this.isClosing = false;
-            this.element.style.minHeight = "";
-          },
-        });
-      }
-
-      this.ref.backdrop.classList.toggle("pointer-events-auto", open);
-      this.ref.backdrop.classList.toggle("pointer-events-none", !open);
-
-      this.ref.backdrop.setAttribute("aria-hidden", String(!open));
-      this.ref.panel.setAttribute("aria-hidden", String(!open));
-      this.ref.content.classList.toggle("opacity-0", !open);
-      this.ref.content.classList.toggle("opacity-100", open);
-
-      eventbus.emit("infoPanel:change", { open });
+    if (this.showingImpressum) {
+      this.closeImpressum();
+    } else if (this.state.open) {
+      this.setState({ open: false });
     }
   }
-}
 
+  openImpressum() {
+    if (this.showingImpressum || !this.state.open) return;
+
+    this.showingImpressum = true;
+    this.isClosing = true;
+    this.setViewportPosition(this.ref.impressumPanel);
+    this.ref.impressumPanel.setAttribute('aria-hidden', 'false');
+    this.ref.impressumContent.classList.replace('opacity-0', 'opacity-100');
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const impressumY = this.ref.impressumPanel.offsetHeight;
+
+    gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel]);
+    gsap.set(this.ref.impressumPanel, { y: impressumY });
+    gsap.to(this.ref.panel, {
+      y: -(window.innerHeight + this.ref.panel.offsetHeight),
+      duration: reduceMotion ? 0 : 0.5,
+      ease: 'power3.inOut',
+    });
+    gsap.to(this.ref.impressumPanel, {
+      y: 0,
+      duration: reduceMotion ? 0 : 0.5,
+      ease: 'power3.inOut',
+      onComplete: () => {
+        this.isClosing = false;
+      },
+    });
+  }
+
+  closeImpressum() {
+    if (!this.showingImpressum) return;
+
+    this.isClosing = true;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel]);
+    gsap.to(this.ref.impressumPanel, {
+      y: this.ref.impressumPanel.offsetHeight,
+      duration: reduceMotion ? 0 : 0.5,
+      ease: 'power3.inOut',
+    });
+    gsap.to(this.ref.panel, {
+      y: 0,
+      duration: reduceMotion ? 0 : 0.5,
+      ease: 'power3.inOut',
+      onComplete: () => {
+        this.showingImpressum = false;
+        this.isClosing = false;
+        this.ref.impressumPanel.setAttribute('aria-hidden', 'true');
+        this.ref.impressumContent.classList.replace('opacity-100', 'opacity-0');
+      },
+    });
+  }
+
+  stateChange(changes) {
+    if (!('open' in changes)) return;
+
+    const open = changes.open;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    this.isClosing = !open;
+
+    if (open) {
+      const openTop = this.setOpenPosition();
+
+      gsap.set(this.ref.panel, { y: this.getClosedY() });
+      gsap.to(this.ref.panel, {
+        y: 0,
+        duration: reduceMotion ? 0 : 0.5,
+        ease: 'power3.out',
+        onComplete: () => this.movePanelIntoDocumentFlow(openTop),
+      });
+    } else {
+      const closedY = this.resetPanelToViewport();
+
+      gsap.to(this.ref.panel, {
+        y: closedY,
+        duration: reduceMotion ? 0 : 0.5,
+        ease: 'power3.out',
+        onComplete: () => {
+          this.isClosing = false;
+          this.element.style.minHeight = '';
+        },
+      });
+    }
+
+    this.ref.backdrop.classList.toggle('pointer-events-auto', open);
+    this.ref.backdrop.classList.toggle('pointer-events-none', !open);
+    this.ref.backdrop.setAttribute('aria-hidden', String(!open));
+    this.ref.panel.setAttribute('aria-hidden', String(!open));
+    this.ref.content.classList.toggle('opacity-0', !open);
+    this.ref.content.classList.toggle('opacity-100', open);
+    eventbus.emit('infoPanel:change', { open });
+  }
+}
