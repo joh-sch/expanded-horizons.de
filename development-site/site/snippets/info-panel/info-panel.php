@@ -75,7 +75,7 @@ $footerlinks = $site->footerlinks()->toStructure();
     <?php endif ?>
 
     <?php if ($footerlinks->isNotEmpty()): ?>
-      <ul class="mt-10 flex flex-wrap gap-x-4 gap-y-1 text-xs font-bold tracking-wide">
+      <ul class="mt-10 flex flex-wrap gap-x-4 gap-y-1 fließtext-md tracking-wide">
         <?php foreach ($footerlinks as $link): ?>
           <?php $isImpressum = strtolower($link->label()->value()) === 'impressum'; ?>
           <li>

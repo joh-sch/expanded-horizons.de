@@ -76,46 +76,46 @@ export default class InfoPanel extends Component {
     return Math.max(this.ref.panel.offsetHeight - this.options.peekHeight, 0);
   }
 
-  getOpenTop() {
+  getOpenTop(panel) {
     const bar = document.getElementById('intro-bar');
     const barBottom = bar?.getBoundingClientRect().bottom || 0;
 
-    return Math.max(barBottom + 16, window.innerHeight - this.ref.panel.offsetHeight);
+    return Math.max(barBottom + 16, window.innerHeight - panel.offsetHeight);
   }
 
-  getOffsetParentTop() {
-    const offsetParent = this.ref.panel.offsetParent;
+  getOffsetParentTop(panel) {
+    const offsetParent = panel.offsetParent;
 
     return offsetParent ? offsetParent.getBoundingClientRect().top + window.scrollY : 0;
   }
 
-  setOpenPosition() {
-    const top = this.getOpenTop();
+  setOpenPosition(panel) {
+    const top = this.getOpenTop(panel);
 
-    this.ref.panel.style.position = 'fixed';
-    this.ref.panel.style.top = `${top}px`;
-    this.ref.panel.style.bottom = 'auto';
+    panel.style.position = 'fixed';
+    panel.style.top = `${top}px`;
+    panel.style.bottom = 'auto';
 
     return top;
   }
 
-  movePanelIntoDocumentFlow(top) {
-    const absoluteTop = window.scrollY + top - this.getOffsetParentTop();
+  movePanelIntoDocumentFlow(panel, top) {
+    const absoluteTop = window.scrollY + top - this.getOffsetParentTop(panel);
 
-    this.ref.panel.style.position = 'absolute';
-    this.ref.panel.style.top = `${absoluteTop}px`;
-    this.ref.panel.style.bottom = 'auto';
-    this.element.style.minHeight = `${absoluteTop + this.ref.panel.offsetHeight}px`;
+    panel.style.position = 'absolute';
+    panel.style.top = `${absoluteTop}px`;
+    panel.style.bottom = 'auto';
+    this.element.style.minHeight = `${absoluteTop + panel.offsetHeight}px`;
   }
 
-  resetPanelToViewport() {
-    const rect = this.ref.panel.getBoundingClientRect();
-    const viewportBottomTop = window.innerHeight - this.ref.panel.offsetHeight;
+  resetPanelToViewport(panel) {
+    const rect = panel.getBoundingClientRect();
+    const viewportBottomTop = window.innerHeight - panel.offsetHeight;
 
-    this.setViewportPosition(this.ref.panel);
-    gsap.set(this.ref.panel, { y: rect.top - viewportBottomTop });
+    this.setViewportPosition(panel);
+    gsap.set(panel, { y: rect.top - viewportBottomTop });
 
-    return this.getClosedY();
+    return panel === this.ref.panel ? this.getClosedY() : panel.offsetHeight;
   }
 
   updateTopOffset() {
@@ -198,7 +198,7 @@ export default class InfoPanel extends Component {
 
     this.showingImpressum = true;
     this.isClosing = true;
-    this.setViewportPosition(this.ref.impressumPanel);
+    const impressumTop = this.setOpenPosition(this.ref.impressumPanel);
     this.ref.impressumPanel.setAttribute('aria-hidden', 'false');
     this.ref.impressumContent.classList.replace('opacity-0', 'opacity-100');
 
@@ -217,6 +217,7 @@ export default class InfoPanel extends Component {
       duration: reduceMotion ? 0 : 0.5,
       ease: 'power3.inOut',
       onComplete: () => {
+        this.movePanelIntoDocumentFlow(this.ref.impressumPanel, impressumTop);
         this.isClosing = false;
       },
     });
@@ -227,10 +228,11 @@ export default class InfoPanel extends Component {
 
     this.isClosing = true;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const closedY = this.resetPanelToViewport(this.ref.impressumPanel);
 
     gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel]);
     gsap.to(this.ref.impressumPanel, {
-      y: this.ref.impressumPanel.offsetHeight,
+      y: closedY,
       duration: reduceMotion ? 0 : 0.5,
       ease: 'power3.inOut',
     });
@@ -256,17 +258,17 @@ export default class InfoPanel extends Component {
     this.isClosing = !open;
 
     if (open) {
-      const openTop = this.setOpenPosition();
+      const openTop = this.setOpenPosition(this.ref.panel);
 
       gsap.set(this.ref.panel, { y: this.getClosedY() });
       gsap.to(this.ref.panel, {
         y: 0,
         duration: reduceMotion ? 0 : 0.5,
         ease: 'power3.out',
-        onComplete: () => this.movePanelIntoDocumentFlow(openTop),
+        onComplete: () => this.movePanelIntoDocumentFlow(this.ref.panel, openTop),
       });
     } else {
-      const closedY = this.resetPanelToViewport();
+      const closedY = this.resetPanelToViewport(this.ref.panel);
 
       gsap.to(this.ref.panel, {
         y: closedY,
