@@ -11,6 +11,7 @@ $levels = [
 $level = $block->level()->value();
 $level = array_key_exists($level, $levels) ? $level : 'h2';
 $class = $levels[$level];
+$marginBottom = $block->marginBottomAmount()->or(0)->value() . $block->marginBottomUnit()->or('rem')->value();
 
 // Markup // ?>
-<<?= $level ?> class="<?= $class ?>"><?= $block->text() ?></<?= $level ?>>
+<<?= $level ?> class="<?= $class ?> mb-(--mb)" style="--mb: <?= esc($marginBottom, 'attr') ?>"><?= $block->text() ?></<?= $level ?>>

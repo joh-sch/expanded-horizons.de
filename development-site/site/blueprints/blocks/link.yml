@@ -1,0 +1,40 @@
+name: Link
+icon: url
+wysiwyg: true
+preview: text
+tabs:
+  content:
+    label: Content
+    fields:
+      text:
+        label: Link text
+        type: text
+      url:
+        label: URL
+        type: url
+      openInNewTab:
+        label: Open in new tab
+        type: toggle
+        text:
+          - Same tab
+          - New tab
+  layout:
+    label: Layout
+    fields:
+      marginBottomAmount:
+        label: Bottom margin
+        type: number
+        min: 0
+        step: 0.1
+        default: 0
+      marginBottomUnit:
+        label: Unit
+        type: select
+        default: rem
+        options:
+          px: px
+          rem: rem
+          em: em
+          '%': '%'
+          vw: vw
+          vh: vh

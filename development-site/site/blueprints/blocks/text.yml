@@ -1,0 +1,33 @@
+name: field.blocks.text.name
+icon: text
+wysiwyg: true
+preview: text
+tabs:
+  content:
+    label: Content
+    fields:
+      text:
+        label: field.blocks.text.text
+        type: writer
+        inline: true
+        placeholder: field.blocks.text.placeholder
+  layout:
+    label: Layout
+    fields:
+      marginBottomAmount:
+        label: Bottom margin
+        type: number
+        min: 0
+        step: 0.1
+        default: 0
+      marginBottomUnit:
+        label: Unit
+        type: select
+        default: rem
+        options:
+          px: px
+          rem: rem
+          em: em
+          '%': '%'
+          vw: vw
+          vh: vh

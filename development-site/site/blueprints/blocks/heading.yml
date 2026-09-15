@@ -1,0 +1,49 @@
+name: field.blocks.heading.name
+icon: title
+wysiwyg: true
+preview: heading
+tabs:
+  content:
+    label: Content
+    fields:
+      level:
+        label: field.blocks.heading.level
+        type: toggles
+        empty: false
+        default: h2
+        labels: false
+        options:
+          - value: h1
+            icon: h1
+            text: H1
+          - value: h2
+            icon: h2
+            text: H2
+          - value: h3
+            icon: h3
+            text: H3
+      text:
+        label: field.blocks.heading.text
+        type: writer
+        inline: true
+        placeholder: field.blocks.heading.placeholder
+  layout:
+    label: Layout
+    fields:
+      marginBottomAmount:
+        label: Bottom margin
+        type: number
+        min: 0
+        step: 0.1
+        default: 0
+      marginBottomUnit:
+        label: Unit
+        type: select
+        default: rem
+        options:
+          px: px
+          rem: rem
+          em: em
+          '%': '%'
+          vw: vw
+          vh: vh
