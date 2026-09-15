@@ -111,13 +111,17 @@ export default class IntroBar extends Component {
     eventbus.emit("infoPanel:toggle");
   }
 
-  handleTogglePointerEnter() {
+  handleTogglePointerEnter(event) {
+    if (event.pointerType !== "mouse") return;
+
     if (!this.toggleHoverSuppressed) {
       eventbus.emit("infoPanel:peek-hover", { hovering: true });
     }
   }
 
-  handleTogglePointerLeave() {
+  handleTogglePointerLeave(event) {
+    if (event.pointerType !== "mouse") return;
+
     this.toggleHoverSuppressed = false;
     eventbus.emit("infoPanel:peek-hover", { hovering: false });
   }

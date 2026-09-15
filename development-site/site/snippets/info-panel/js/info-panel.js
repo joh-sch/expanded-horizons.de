@@ -16,7 +16,9 @@ export default class InfoPanel extends Component {
     };
 
     this.options = {
-      peekHeight: 56,
+      peekHeight: 30,
+      peekHeightDesktop: 60,
+      peekBreakpoint: 640,
       hoverLift: 16,
       ...options,
     };
@@ -48,6 +50,12 @@ export default class InfoPanel extends Component {
     gsap.set(this.ref.panel, { y: this.getClosedY() });
     gsap.set(this.ref.impressumPanel, { y: this.ref.impressumPanel.offsetHeight });
 
+    document.fonts.ready.then(() => {
+      if (this.state.open || this.showingImpressum) return;
+
+      gsap.set(this.ref.panel, { y: this.getClosedY() });
+    });
+
     this.ref.backdrop.addEventListener('click', this.handleBackdropClick);
     this.ref.panel.addEventListener('click', this.handlePanelClick, true);
     this.ref.panel.addEventListener('pointerenter', this.handlePanelPointerEnter);
@@ -65,8 +73,14 @@ export default class InfoPanel extends Component {
     panel.style.top = 'auto';
   }
 
+  getPeekHeight() {
+    return window.innerWidth >= this.options.peekBreakpoint
+      ? this.options.peekHeightDesktop
+      : this.options.peekHeight;
+  }
+
   getClosedY() {
-    return Math.max(this.ref.panel.offsetHeight - this.options.peekHeight, 0);
+    return Math.max(this.ref.panel.offsetHeight - this.getPeekHeight(), 0);
   }
 
   getOpenTop(panel) {
@@ -149,11 +163,15 @@ export default class InfoPanel extends Component {
     this.closeImpressum();
   }
 
-  handlePanelPointerEnter() {
+  handlePanelPointerEnter(event) {
+    if (event.pointerType !== 'mouse') return;
+
     this.handlePeekHover({ hovering: true });
   }
 
-  handlePanelPointerLeave() {
+  handlePanelPointerLeave(event) {
+    if (event.pointerType !== 'mouse') return;
+
     this.handlePeekHover({ hovering: false });
   }
 

@@ -33,7 +33,7 @@ export default function initPageTransitions(components = {}) {
 
   swupInstance = new Swup({
     containers: ['#swup'],
-    plugins: [new SwupGiaPlugin({ components, firstLoad: true })],
+    plugins: [new SwupGiaPlugin({ components, firstLoad: false })],
   });
 
   eventbus.on('language:navigate', ({ url }) => {

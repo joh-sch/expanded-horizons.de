@@ -1,7 +1,7 @@
 <!doctype html>
 <html 
   lang="<?= $kirby->language()?->code() ?? 'en' ?>"
-  class="bg-accent">
+  class="bg-accent selection:bg-accent">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">

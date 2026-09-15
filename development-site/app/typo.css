@@ -22,7 +22,7 @@
 
   .fließtext-md {
     font-family: var(--font-haas), "Helvetica", sans-serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     /* letter-spacing: -0.015em; */
     line-height: 1.175;
   }
@@ -32,5 +32,11 @@
   }
   .fließtext-md p:last-child {
     margin-bottom: 0;
+  }
+
+  @media (max-width: 640px) {
+    .fließtext-md {
+      font-size: 0.95rem;
+    }
   }
 }
