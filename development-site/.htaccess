@@ -3,3 +3,29 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [L]
+
+# Kirby – Clean URLs & security
+# https://getkirby.com/docs/guide/configuration#htaccess
+
+# Block direct access to Kirby system directories
+RedirectMatch 403 ^/(content|site|kirby|storage)/
+
+# Block access to sensitive files
+<FilesMatch "(composer\.json|composer\.lock|\.env)$">
+  Require all denied
+</FilesMatch>
+
+# Disable directory listing
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Do not rewrite for actual files or directories
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Route everything else through Kirby
+  RewriteRule ^(.*)$ index.php [L]
+</IfModule>
