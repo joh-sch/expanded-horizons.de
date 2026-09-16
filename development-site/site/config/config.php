@@ -1,6 +1,6 @@
 <?php
 
-define('EXPANDED_HORIZONS_VERSION', '0.0.0');
+define('EXPANDED_HORIZONS_VERSION', '1.0.0');
 
 return [
 
