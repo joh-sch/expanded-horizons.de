@@ -96,15 +96,22 @@ export default class InfoPanel extends Component {
     return this.getOpenTop(panel) - naturalTop;
   }
 
+  updateMinHeight(panel) {
+    const top = parseFloat(panel.style.top) || 0;
+
+    this.element.style.minHeight = `${top + panel.offsetHeight + 32}px`;
+  }
+
   movePanelIntoDocumentFlow(panel, top) {
     const wrapperTop = this.element.getBoundingClientRect().top + window.scrollY;
-    const absoluteTop = window.scrollY + top - wrapperTop;
+    const absoluteTop = top - wrapperTop;
 
     panel.style.position = 'absolute';
     panel.style.top = `${absoluteTop}px`;
     panel.style.bottom = 'auto';
     gsap.set(panel, { y: 0 });
-    this.element.style.minHeight = `${absoluteTop + panel.offsetHeight + 32}px`;
+    this.updateMinHeight(panel);
+    window.scrollTo(0, 0);
   }
 
   resetPanelToViewport(panel) {
@@ -232,6 +239,7 @@ export default class InfoPanel extends Component {
         this.isClosing = false;
         this.ref.impressumPanel.setAttribute('aria-hidden', 'true');
         this.ref.impressumContent.classList.replace('opacity-100', 'opacity-0');
+        this.updateMinHeight(this.ref.panel);
       },
     });
   }

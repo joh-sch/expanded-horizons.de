@@ -9,8 +9,7 @@ $target = $block->openInNewTab()->toBool() ? '_blank' : null;
 <a
   href="<?= esc($block->url()->value(), 'attr') ?>"
   <?= $target ? 'target="' . $target . '" rel="noopener noreferrer"' : '' ?>
-  class="relative flex gap-x-2 text-hdl-sm text-ink transition-colors hover:text-accent mb-(--mb)"
+  class="text-hdl-sm text-ink transition-colors hover:text-accent mb-(--mb) after:ml-1 after:inline-block after:align-top after:text-[0.7em] after:content-['↗']"
   style="--mb: <?= esc($marginBottom, 'attr') ?>">
-  <span class="relative z-10"><?= esc($block->text()) ?></span>
-  <span class="absolute_ right-[-0.35em] top-[-0.2em] z-0 text-[0.7em] leading-none" aria-hidden="true">↗</span>
+  <?= esc($block->text()) ?>
 </a>
