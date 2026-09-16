@@ -6,37 +6,15 @@ Tagline: A new platform to support young artists
 
 ----
 
-About:
-
-Puda dolorepudae consequod eius untur most, sit aspedip icipis re incimol ecturlatem vellamus, siniatempore nonse etur, te sinis evenis ea volenet ipiduci lignam aut odis magnisit que recatest, sin non cum quod que nis et od untem rate noste sim qui natur alique maio tempos as debisi omnis dipsape rsperro totae quis ma pore, occae mo voluptatias as et am que latur, soluptae veliquasped quam, volupti beaquidusa nos que idusdam volorporates doleceptae eatinis trumqua spere, ut dem estiae
-
-----
-
-Contact:
-
-more coming soon
-
-----
-
-Credits:
-
--
-  name: Deichtorhallen
-  subtitle: House of Photography
--
-  name: Körber Stiftung
-  subtitle: ''
+Info: [{"attrs":{"marginbottomamount":"","marginbottomunit":"","flex":"false","flexdirection":""},"columns":[{"blocks":[{"content":{"level":"h2","text":"Expanded Horizons","marginbottomamount":0.1,"marginbottomunit":"rem"},"id":"ee57e08f-b4b4-440d-8c95-3fc0ef070d90","isHidden":false,"type":"heading"},{"content":{"text":"Ein Thema, acht Preisträger:innen, vielfältige Perspektiven: Mit Expanded Horizons schaffen das Haus der Photographie der Deichtorhallen Hamburg und die Körber-Stiftung eine neue Plattform für fotografischen Nachwuchs. Das Projekt bringt junge künstlerische Positionen aus Deutschland, Österreich und der Schweiz nach Hamburg und stellt dem Publikum neue interdisziplinäre Praktiken vor. Expanded Horizons versteht sich als Förder-, Ausstellungs- und Vermittlungsprojekt für zeitgenössische Fotografie, das jungen Künstler:innen, denen oft begrenzte Ressourcen zur Verfügung stehen, zu internationaler Sichtbarkeit verhelfen soll. Das Jahresthema 2026 lautet »Tomorrow’s Ghosts – (Zeit-)Geister des Fotografischen«.","marginbottomamount":1,"marginbottomunit":"rem"},"id":"a3ebe345-a908-4aa1-9eb3-3663dc7ce8d0","isHidden":false,"type":"text"},{"content":{"level":"h2","text":"Über den Preis","marginbottomamount":0.1,"marginbottomunit":"rem"},"id":"05be54ac-ae59-4c5a-b168-ff722bc7fa9c","isHidden":false,"type":"heading"},{"content":{"text":"Internationale Expert:innen aus den Bereichen zeitgenössische Fotografie, Ausstellung, Sammlung, Forschung und Publikation haben Künstler:innen für die erste Ausgabe von Expanded Horizons nominiert. Aus den eingereichten Vorschlägen wählte eine international besetzte Jury acht Preisträger:innen aus.\n\nDie Künstler:innen erhalten ein Preisgeld zur freien Verfügung sowie bei Bedarf eine Produktionsförderung. Darüber hinaus umfasst der Preis die Teilnahme an der Ausstellung im PHOXXI Hamburg, ein Vermittlungsprogramm sowie eine Publikation. Die Künstler:innen werden außerdem Teil des Alumni-Programms und Netzwerks und erhalten Zugang zu professionellen Weiterentwicklungsmöglichkeiten, einschließlich einer Winter School.","marginbottomamount":1,"marginbottomunit":"rem"},"id":"1a02c835-7465-4ccd-ac9e-841b7d9812a1","isHidden":false,"type":"text"}],"id":"84a98070-c594-4f13-bcb7-08fc39476d6c","width":"1/1"}],"id":"85d285a0-432c-4ad7-8a75-757162f0cc36"},{"attrs":{"marginbottomamount":"","marginbottomunit":"","flex":"false","flexdirection":""},"columns":[{"blocks":[{"content":{"level":"h2","text":"Die Preisträger:innen 2026","marginbottomamount":0.1,"marginbottomunit":"rem"},"id":"368cd96b-3cf7-48a2-ad5e-44f1a7adc625","isHidden":false,"type":"heading"},{"content":{"text":"Anastasiia Batishcheva<br>Mai Do<br>Teresa Fischer<br>Nora Handsley<br>Lisa Mazenauer<br>Pavle Nikolić<br>Vincent Völker<br>Cedric Zellweger","marginbottomamount":3,"marginbottomunit":"rem"},"id":"5219a3c7-ef4e-4a7e-b8ba-5aed0d21515c","isHidden":false,"type":"text"}],"id":"57046e7d-906c-42f1-902b-9fc4ece41fc7","width":"1/1"}],"id":"9b90a93c-00ba-42bf-b543-4d3813f39da2"},{"attrs":{"marginbottomamount":"","marginbottomunit":"","flex":"true","flexdirection":"col"},"columns":[{"blocks":[{"content":{"text":"Weitere Informationen","marginbottomamount":0.1,"marginbottomunit":"rem"},"id":"420eb5f1-b840-4eda-b198-55a72785234e","isHidden":false,"type":"text"},{"content":{"text":"Projektseite Körber Stiftung","url":"https://koerber-stiftung.de/projekte/expanded-horizons/","openinnewtab":"true","marginbottomamount":0,"marginbottomunit":"rem"},"id":"41d4eea4-fad2-4b1b-8695-97549ea01060","isHidden":false,"type":"link"},{"content":{"text":"Projektseite Deichtorhallen","url":"https://www.deichtorhallen.de/de/ausstellungen/expanded-horizons","openinnewtab":"true","marginbottomamount":0,"marginbottomunit":"rem"},"id":"01779a2c-ddf8-43b5-a00a-43fad7ca2c04","isHidden":false,"type":"link"},{"content":{"text":"Instagram","url":"https://www.instagram.com/@expanded__horizons/","openinnewtab":"true","marginbottomamount":3,"marginbottomunit":"rem"},"id":"76b704a9-8062-4360-b1a4-885cb26ab86b","isHidden":false,"type":"link"}],"id":"5e48d734-dfce-4159-bbf6-d15911e844a6","width":"1/1"}],"id":"344e6f0b-d2f5-438d-b1e0-9b06464bb18b"},{"attrs":{"marginbottomamount":"","marginbottomunit":"","flex":"false","flexdirection":""},"columns":[{"blocks":[{"content":{"level":"h2","text":"Projektteam","marginbottomamount":1,"marginbottomunit":"rem"},"id":"980b7fc2-6670-4a8c-b169-7b46d88aa88a","isHidden":false,"type":"heading"},{"content":{"level":"h3","text":"Jonas Wietelmann","marginbottomamount":0,"marginbottomunit":"rem"},"id":"754250f6-a4ca-475f-b8d0-d2ac8a1e3d36","isHidden":false,"type":"heading"},{"content":{"text":"Programm-Manager Kunst und Museen Körber-Stiftung<br><a href=\"mailto:wietelmann@koerber-stiftung.de\">wietelmann@koerber-stiftung.de</a>","marginbottomamount":1,"marginbottomunit":"rem"},"id":"86e31f91-d1de-48b1-a0ae-cb41eea0cd33","isHidden":false,"type":"text"},{"content":{"level":"h3","text":"Nadine Isabelle Henrich","marginbottomamount":0,"marginbottomunit":"rem"},"id":"bf4bf815-6157-49ec-9ef9-bce096390089","isHidden":false,"type":"heading"},{"content":{"text":"Kuratorin Haus der Photographie der Deichtorhallen<br><a href=\"mailto:henrich@deichtorhallen.de\">henrich@deichtorhallen.de</a>","marginbottomamount":1,"marginbottomunit":"rem"},"id":"0fb53b6a-ca8b-4dd7-a74f-c8cc4ba07c18","isHidden":false,"type":"text"},{"content":{"level":"h3","text":"Viktoria Rochambeau","marginbottomamount":0,"marginbottomunit":"rem"},"id":"f5630d63-adf7-4381-a509-be59def25509","isHidden":false,"type":"heading"},{"content":{"text":"Volontärin Haus der Photographie der Deichtorhallen<br><a href=\"mailto:rochambeau@deichtorhallen.de\">rochambeau@deichtorhallen.de</a>","marginbottomamount":1,"marginbottomunit":"rem"},"id":"758eb42f-eaa8-4465-a360-9d8d6b4e8c41","isHidden":false,"type":"text"}],"id":"d1b72e62-1ec0-46b5-9f9e-20c9d86a1f2c","width":"1/1"}],"id":"be5fb1c2-937c-4faa-bd5d-602034f37cde"}]
 
 ----
 
 Footerlinks:
 
--
+- 
   label: Imprint
-  url: ''
--
+  url: ""
+- 
   label: Privacy Policy
-  url: ''
--
-  label: Instagram
-  url: ''
+  url: ""

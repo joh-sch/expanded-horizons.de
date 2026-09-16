@@ -1,0 +1,12 @@
+title: Data Privacy
+
+fields:
+  info:
+    type: layout
+    label: Data privacy content
+    layouts:
+      - '1/1'
+    fieldsets:
+      - heading
+      - text
+      - link

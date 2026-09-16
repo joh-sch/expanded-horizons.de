@@ -15,6 +15,9 @@ Footerlinks:
 - 
   label: Impressum
   url: ""
+- 
+  label: Datenschutz
+  url: ""
 
 ----
 

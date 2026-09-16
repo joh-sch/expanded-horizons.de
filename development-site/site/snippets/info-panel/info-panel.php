@@ -19,6 +19,7 @@
 $optionsToRender = [];
 $info = $site->info()->toLayouts();
 $impressumPage = $kirby->page('impressum');
+$dataprivacyPage = $kirby->page('dataprivacy');
 $credits = $site->credits()->toStructure();
 $footerlinks = $site->footerlinks()->toStructure();
 
@@ -77,11 +78,17 @@ $footerlinks = $site->footerlinks()->toStructure();
     <?php if ($footerlinks->isNotEmpty()): ?>
       <ul class="mt-10 flex flex-wrap gap-x-4 gap-y-1 fließtext-md tracking-wide">
         <?php foreach ($footerlinks as $link): ?>
-          <?php $isImpressum = strtolower($link->label()->value()) === 'impressum'; ?>
+          <?php
+            $label = strtolower($link->label()->value());
+            $isImpressum = in_array($label, ['impressum', 'imprint'], true);
+            $isDataPrivacy = in_array($label, ['privacy policy', 'datenschutz'], true);
+            $target = $isImpressum ? 'impressum' : ($isDataPrivacy ? 'dataprivacy' : null);
+            $targetPage = $isImpressum ? $impressumPage : ($isDataPrivacy ? $dataprivacyPage : null);
+          ?>
           <li>
             <a
-                href="<?= esc($isImpressum && $impressumPage ? $impressumPage->url() : $link->url(), 'attr') ?>"
-                <?= $isImpressum ? 'data-info-panel-target="impressum"' : '' ?>>
+                href="<?= esc($target && $targetPage ? $targetPage->url() : $link->url(), 'attr') ?>"
+                <?= $target ? 'data-info-panel-target="' . esc($target, 'attr') . '"' : '' ?>>
               <?= esc($link->label()) ?>
             </a>
           </li>
@@ -110,6 +117,29 @@ $footerlinks = $site->footerlinks()->toStructure();
 
       <?php if ($impressumPage && $impressumPage->info()->toLayouts()->isNotEmpty()): ?>
         <?php snippet('layout/layout', ['layouts' => $impressumPage->info()->toLayouts()]) ?>
+      <?php endif ?>
+    </div>
+
+  </div>
+
+  <div
+      id            ="dataprivacy-panel"
+      g-ref         ="dataprivacyPanel"
+      role          ="dialog"
+      aria-modal    ="true"
+      aria-hidden   ="true"
+      style         ="transform: translateY(100%)"
+      class         ="fixed bottom-0 inset-x-4 z-50 mx-auto max-w-134 rounded-2xl bg-paper px-6 py-6 shadow-lg">
+
+    <div g-ref="dataprivacyContent" class="opacity-0 transition-opacity duration-666 ease-in-out">
+      <?php snippet('btns/btn', [
+        'gRef'    => 'dataprivacyClose',
+        'class'   => 'absolute right-6 top-6 h-3.5 rounded-sm border border-current px-1.5',
+        'content' => '<span class="text-[10px] translate-y-[0.5px]">Close</span>',
+      ]); ?>
+
+      <?php if ($dataprivacyPage && $dataprivacyPage->info()->toLayouts()->isNotEmpty()): ?>
+        <?php snippet('layout/layout', ['layouts' => $dataprivacyPage->info()->toLayouts()]) ?>
       <?php endif ?>
     </div>
 

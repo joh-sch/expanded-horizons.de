@@ -28,6 +28,7 @@
     --color-paper: #f7f7f4;
     --color-accent: #4500E2;
     --font-gravity: 'ABC Gravity Variable', Helvetica, sans-serif;
+    --font-haas: 'Neue Haas Grotesk', Helvetica, sans-serif;
   }
 }
 @layer base {
@@ -217,6 +218,9 @@
   .inset-x-0 {
     inset-inline: 0px;
   }
+  .inset-x-4 {
+    inset-inline: calc(var(--spacing) * 4);
+  }
   .inset-y-0 {
     inset-block: 0px;
   }
@@ -229,9 +233,6 @@
   .top-\[-0\.2em\] {
     top: -0.2em;
   }
-  .right-0 {
-    right: 0px;
-  }
   .right-6 {
     right: calc(var(--spacing) * 6);
   }
@@ -240,6 +241,9 @@
   }
   .bottom-0 {
     bottom: 0px;
+  }
+  .bottom-4 {
+    bottom: calc(var(--spacing) * 4);
   }
   .left-0 {
     left: 0px;
@@ -307,6 +311,9 @@
   .inline-block {
     display: inline-block;
   }
+  .inline-flex {
+    display: inline-flex;
+  }
   .aspect-\[var\(--ar\,auto\)\] {
     aspect-ratio: var(--ar,auto);
   }
@@ -363,6 +370,21 @@
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .flex-col-reverse {
+    flex-direction: column-reverse;
+  }
+  .flex-row {
+    flex-direction: row;
+  }
+  .flex-row-reverse {
+    flex-direction: row-reverse;
   }
   .flex-wrap {
     flex-wrap: wrap;
@@ -452,6 +474,9 @@
   .pr-0\.75 {
     padding-right: calc(var(--spacing) * 0.75);
   }
+  .pb-4 {
+    padding-bottom: calc(var(--spacing) * 4);
+  }
   .pl-0\.5 {
     padding-left: calc(var(--spacing) * 0.5);
   }
@@ -516,6 +541,9 @@
   .lowercase {
     text-transform: lowercase;
   }
+  .uppercase {
+    text-transform: uppercase;
+  }
   .italic {
     font-style: italic;
   }
@@ -577,13 +605,35 @@
     --tw-duration: 666ms;
     transition-duration: 666ms;
   }
-  .duration-3000 {
-    --tw-duration: 3000ms;
-    transition-duration: 3000ms;
-  }
   .ease-in-out {
     --tw-ease: var(--ease-in-out);
     transition-timing-function: var(--ease-in-out);
+  }
+  .selection\:bg-accent ::selection {
+    background-color: var(--color-accent);
+  }
+  .selection\:bg-accent::selection {
+    background-color: var(--color-accent);
+  }
+  .after\:ml-1::after {
+    content: var(--tw-content);
+    margin-left: var(--spacing);
+  }
+  .after\:inline-block::after {
+    content: var(--tw-content);
+    display: inline-block;
+  }
+  .after\:align-top::after {
+    content: var(--tw-content);
+    vertical-align: top;
+  }
+  .after\:text-\[0\.7em\]::after {
+    content: var(--tw-content);
+    font-size: 0.7em;
+  }
+  .after\:content-\[\'↗\'\]::after {
+    --tw-content: '↗';
+    content: var(--tw-content);
   }
   @media (hover: hover) {
     .hover\:text-accent:hover {
@@ -625,9 +675,8 @@
     line-height: 1;
   }
   .fließtext-md {
-    font-family: "Helvetica", sans-serif;
-    font-size: 1rem;
-    letter-spacing: -0.015em;
+    font-family: var(--font-haas), "Helvetica", sans-serif;
+    font-size: 1.1rem;
     line-height: 1.175;
   }
   .fließtext-md p {
@@ -636,12 +685,31 @@
   .fließtext-md p:last-child {
     margin-bottom: 0;
   }
+  @media (max-width: 640px) {
+    .fließtext-md {
+      font-size: 0.95rem;
+    }
+  }
 }
 @font-face {
   font-family: 'ABC Gravity Variable';
   src: url('../assets/fonts/ABCGravityUprightVariableUnlicensedTrial-Regular.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Neue Haas Grotesk';
+  src: url('../assets/fonts/neue-haas/NeueHaasDisplay-Roman.woff2') format('woff2'), url('../assets/fonts/neue-haas/NeueHaasDisplay-Roman.woff') format('woff'), url('../assets/fonts/neue-haas/NeueHaasDisplay-Roman.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Neue Haas Grotesk';
+  src: url('../assets/fonts/neue-haas/NeueHaasDisplay-RomanItalic.woff2') format('woff2'), url('../assets/fonts/neue-haas/NeueHaasDisplay-RomanItalic.woff') format('woff'), url('../assets/fonts/neue-haas/NeueHaasDisplay-RomanItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
 }
 @layer base {
@@ -843,6 +911,11 @@
   syntax: "*";
   inherits: false;
 }
+@property --tw-content {
+  syntax: "*";
+  initial-value: "";
+  inherits: false;
+}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
@@ -887,6 +960,7 @@
       --tw-drop-shadow-size: initial;
       --tw-duration: initial;
       --tw-ease: initial;
+      --tw-content: "";
     }
   }
 }

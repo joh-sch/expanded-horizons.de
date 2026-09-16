@@ -13,6 +13,9 @@ export default class InfoPanel extends Component {
       impressumPanel: null,
       impressumContent: null,
       impressumClose: null,
+      dataprivacyPanel: null,
+      dataprivacyContent: null,
+      dataprivacyClose: null,
     };
 
     this.options = {
@@ -25,12 +28,14 @@ export default class InfoPanel extends Component {
 
     this.isClosing = false;
     this.showingImpressum = false;
+    this.showingDataprivacy = false;
 
     this.handleToggle = this.handleToggle.bind(this);
     this.handlePeekHover = this.handlePeekHover.bind(this);
     this.handleBackdropClick = this.handleBackdropClick.bind(this);
     this.handlePanelClick = this.handlePanelClick.bind(this);
     this.handleImpressumClose = this.handleImpressumClose.bind(this);
+    this.handleDataprivacyClose = this.handleDataprivacyClose.bind(this);
     this.handlePanelPointerEnter = this.handlePanelPointerEnter.bind(this);
     this.handlePanelPointerLeave = this.handlePanelPointerLeave.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
@@ -49,9 +54,10 @@ export default class InfoPanel extends Component {
   init() {
     gsap.set(this.ref.panel, { y: this.getClosedY() });
     gsap.set(this.ref.impressumPanel, { y: this.ref.impressumPanel.offsetHeight });
+    gsap.set(this.ref.dataprivacyPanel, { y: this.ref.dataprivacyPanel.offsetHeight });
 
     document.fonts.ready.then(() => {
-      if (this.state.open || this.showingImpressum) return;
+      if (this.state.open || this.showingImpressum || this.showingDataprivacy) return;
 
       gsap.set(this.ref.panel, { y: this.getClosedY() });
     });
@@ -62,6 +68,8 @@ export default class InfoPanel extends Component {
     this.ref.panel.addEventListener('pointerleave', this.handlePanelPointerLeave);
     this.ref.impressumPanel.addEventListener('click', this.handlePanelClick, true);
     this.ref.impressumClose.addEventListener('click', this.handleImpressumClose);
+    this.ref.dataprivacyPanel.addEventListener('click', this.handlePanelClick, true);
+    this.ref.dataprivacyClose.addEventListener('click', this.handleDataprivacyClose);
     eventbus.on('infoPanel:toggle', this.handleToggle);
     eventbus.on('infoPanel:peek-hover', this.handlePeekHover);
     document.addEventListener('keydown', this.handleKeydown);
@@ -130,11 +138,16 @@ export default class InfoPanel extends Component {
       return;
     }
 
+    if (this.showingDataprivacy) {
+      this.closeDataprivacy();
+      return;
+    }
+
     this.setState({ open: !this.state.open });
   }
 
   handlePeekHover(event) {
-    if (this.state.open || this.isClosing || this.showingImpressum) return;
+    if (this.state.open || this.isClosing || this.showingImpressum || this.showingDataprivacy) return;
 
     gsap.to(this.ref.panel, {
       y: event.hovering ? this.getClosedY() - this.options.hoverLift : this.getClosedY(),
@@ -146,6 +159,11 @@ export default class InfoPanel extends Component {
   handleBackdropClick() {
     if (this.showingImpressum) {
       this.closeImpressum();
+      return;
+    }
+
+    if (this.showingDataprivacy) {
+      this.closeDataprivacy();
       return;
     }
 
@@ -162,12 +180,26 @@ export default class InfoPanel extends Component {
       return;
     }
 
-    if (!this.showingImpressum && !this.state.open) this.setState({ open: true });
+    const dataprivacyLink = event.target.closest('[data-info-panel-target="dataprivacy"]');
+
+    if (dataprivacyLink) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      this.openDataprivacy();
+      return;
+    }
+
+    if (!this.showingImpressum && !this.showingDataprivacy && !this.state.open) this.setState({ open: true });
   }
 
   handleImpressumClose(event) {
     event.stopPropagation();
     this.closeImpressum();
+  }
+
+  handleDataprivacyClose(event) {
+    event.stopPropagation();
+    this.closeDataprivacy();
   }
 
   handlePanelPointerEnter(event) {
@@ -184,12 +216,13 @@ export default class InfoPanel extends Component {
 
   handleKeydown(event) {
     if (event.key !== 'Escape') return;
-    if (this.showingImpressum)  this.closeImpressum();
-    else if (this.state.open)   this.setState({ open: false });
+    if (this.showingImpressum)         this.closeImpressum();
+    else if (this.showingDataprivacy)  this.closeDataprivacy();
+    else if (this.state.open)          this.setState({ open: false });
   }
 
   openImpressum() {
-    if (this.showingImpressum || !this.state.open) return;
+    if (this.showingImpressum || this.showingDataprivacy || !this.state.open) return;
 
     this.showingImpressum = true;
     this.isClosing = true;
@@ -200,7 +233,7 @@ export default class InfoPanel extends Component {
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel]);
+    gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel, this.ref.dataprivacyPanel]);
     gsap.to(this.ref.panel, {
       y: -(window.innerHeight + this.ref.panel.offsetHeight),
       duration: reduceMotion ? 0 : 0.666,
@@ -224,7 +257,7 @@ export default class InfoPanel extends Component {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const closedY = this.resetPanelToViewport(this.ref.impressumPanel);
 
-    gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel]);
+    gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel, this.ref.dataprivacyPanel]);
     gsap.to(this.ref.impressumPanel, {
       y: closedY,
       duration: reduceMotion ? 0 : 0.666,
@@ -239,6 +272,62 @@ export default class InfoPanel extends Component {
         this.isClosing = false;
         this.ref.impressumPanel.setAttribute('aria-hidden', 'true');
         this.ref.impressumContent.classList.replace('opacity-100', 'opacity-0');
+        this.updateMinHeight(this.ref.panel);
+      },
+    });
+  }
+
+  openDataprivacy() {
+    if (this.showingImpressum || this.showingDataprivacy || !this.state.open) return;
+
+    this.showingDataprivacy = true;
+    this.isClosing = true;
+    const dataprivacyTop = this.getOpenTop(this.ref.dataprivacyPanel);
+    const dataprivacyY = this.getOpenY(this.ref.dataprivacyPanel);
+    this.ref.dataprivacyPanel.setAttribute('aria-hidden', 'false');
+    this.ref.dataprivacyContent.classList.replace('opacity-0', 'opacity-100');
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel, this.ref.dataprivacyPanel]);
+    gsap.to(this.ref.panel, {
+      y: -(window.innerHeight + this.ref.panel.offsetHeight),
+      duration: reduceMotion ? 0 : 0.666,
+      ease: 'power3.inOut',
+    });
+    gsap.to(this.ref.dataprivacyPanel, {
+      y: dataprivacyY,
+      duration: reduceMotion ? 0 : 0.666,
+      ease: 'power3.inOut',
+      onComplete: () => {
+        this.movePanelIntoDocumentFlow(this.ref.dataprivacyPanel, dataprivacyTop);
+        this.isClosing = false;
+      },
+    });
+  }
+
+  closeDataprivacy() {
+    if (!this.showingDataprivacy) return;
+
+    this.isClosing = true;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const closedY = this.resetPanelToViewport(this.ref.dataprivacyPanel);
+
+    gsap.killTweensOf([this.ref.panel, this.ref.impressumPanel, this.ref.dataprivacyPanel]);
+    gsap.to(this.ref.dataprivacyPanel, {
+      y: closedY,
+      duration: reduceMotion ? 0 : 0.666,
+      ease: 'power3.inOut',
+    });
+    gsap.to(this.ref.panel, {
+      y: 0,
+      duration: reduceMotion ? 0 : 0.666,
+      ease: 'power3.inOut',
+      onComplete: () => {
+        this.showingDataprivacy = false;
+        this.isClosing = false;
+        this.ref.dataprivacyPanel.setAttribute('aria-hidden', 'true');
+        this.ref.dataprivacyContent.classList.replace('opacity-100', 'opacity-0');
         this.updateMinHeight(this.ref.panel);
       },
     });
