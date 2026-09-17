@@ -6,6 +6,10 @@
 - Create components with `npm run create-comp "Component Name"`.
 - Do not commit generated frontend assets, installed dependencies, Kirby runtime state, local configuration, accounts, caches, or sessions.
 - Use Conventional Commits in the form `type(scope): description`.
+- Keep template/snippet markup free of business logic. Compute data (queries,
+  language/URL lookups, structured arrays, etc.) in a Kirby controller
+  (`development-site/site/controllers/`) and let templates/snippets just read
+  the resulting variables.
 
 ---
 
@@ -13,6 +17,28 @@
 
 - **Always use single quotes** in PHP and JavaScript/TypeScript strings — never double quotes, unless the string itself contains a single quote that cannot be escaped. Do not change existing quote style when editing a file.
 - **Never run build or validation commands as part of routine edits** for this project. Do not use `npm run js-build`, `npm run build`, lint, or similar validation commands unless the user explicitly asks for them.
+
+---
+
+## Logic placement: controllers over markup
+
+Keep templates and snippets as close to pure markup as possible. Any non-trivial
+computation — building option/data arrays, looking up other languages' content,
+resolving URLs across languages, structure/collection queries, etc. — belongs in
+a Kirby controller, not inline in a `.php` template or snippet.
+
+- Site-wide data (needed on every page, e.g. language switcher info) goes in
+  `development-site/site/controllers/site.php`. Kirby merges its return value
+  into every page's controller data automatically, and that data is in turn
+  available to every `snippet()` call without explicitly passing it — so a
+  snippet can just reference the variable (e.g. `$languageOptions ?? []`)
+  and it will be there.
+- Page-specific data goes in `development-site/site/controllers/<template>.php`
+  (same name as the template file).
+- Templates/snippets should only read already-computed variables and render
+  markup — no `$kirby->language()`, manual array-building, or repeated
+  `->url($lang)`/`->content($lang)` calls scattered across multiple files for
+  the same piece of data.
 
 ---
 
