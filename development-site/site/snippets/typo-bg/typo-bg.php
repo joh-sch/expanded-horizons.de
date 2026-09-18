@@ -9,7 +9,7 @@ $wordB = 'Horizons';
 
 // Markup // ?>
 <div 
-  g-component="TypoBg_v2" 
+  g-component="TypoBg" 
   class      ="fixed inset-0 z-0 h-screen w-screen pb-4 overflow-hidden">
 
   <?php
@@ -18,7 +18,7 @@ $wordB = 'Horizons';
 
   <video
       g-ref="video"
-      class="absolute left-0 bottom-4 z-0 h-full w-full object-contain object-bottom hidden"
+      class="absolute left-0 bottom-4 z-0 h-full w-full object-contain object-bottom"
       src="<?= url('app/assets/videos/bg-typo-anim.mp4') ?>"
       autoplay
       muted
@@ -26,32 +26,5 @@ $wordB = 'Horizons';
       playsinline
       webkit-playsinline="true"
       preload="auto"></video>
-
-  <?php 
-  // Interactive typo //
-  //////////////////////// ?>
-
-  <div class="w-full flex flex-col font-gravity text-[16vw]">
-    <div class="flex">
-      <?php 
-      foreach (str_split($wordA) as $letter): ?>
-        <span
-            g-ref="letters"
-            class="[font-variation-settings:var(--var)]"
-            style="--var: 'slnt' 0, 'wdth' 50, 'wght' 1000;"><?= esc($letter) ?>
-        </span> <?php
-      endforeach ?>
-    </div>
-    <div class="flex">
-      <?php 
-      foreach (str_split($wordB) as $letter): ?>
-        <span
-            g-ref="letters"
-            class="[font-variation-settings:var(--var)]"
-            style="--var: 'slnt' 0, 'wdth' 50, 'wght' 1000;"><?= esc($letter) ?>
-        </span> <?php
-      endforeach ?>
-    </div>
-  </div>
 
 </div>
