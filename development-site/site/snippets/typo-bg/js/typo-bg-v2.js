@@ -29,15 +29,14 @@ export default class TypoBg_v2 extends Component {
     };
 
     this.options = {
-      minWidth: 50, // 'wdth' floor for letters far from the cursor
-      maxWidth: 150, // 'wdth' of the letter closest to the cursor
-      radiusFactor: 3, // influence radius = average letter width * radiusFactor
+      minWidth: 50, // 'wdth' floor for letters far from the mapped cursor position
+      maxWidth: 150, // 'wdth' of the letter under the mapped cursor position
+      radiusFactor: 2, // influence radius = average letter spacing * radiusFactor
       ease: 0.18, // per-frame lerp factor toward the target width (0-1)
       ...options,
     };
 
-    this.letters = []; // { el, baseVar, baseWidth, centerX, currentWidth }
-    this.radius = 0;
+    this.letters = []; // { el, baseVar, baseWidth, centerX, currentWidth, rowMinX, rowMaxX, radius }
     this.mouseX = null;
     this.rafId = null;
 
@@ -87,26 +86,63 @@ export default class TypoBg_v2 extends Component {
   // Geometry ///////
   ///////////////////
 
+  // Letters are grouped per row (shared parent element) so the mouse's
+  // fractional position across the viewport maps onto that row's own
+  // first-to-last letter span, independently of where the row sits on screen.
   measure() {
-    this.letters = this.ref.letters.map((el) => {
+    const previous = this.letters;
+
+    const letters = this.ref.letters.map((el) => {
       const rect = el.getBoundingClientRect();
       const baseVar = el.style.getPropertyValue("--var");
       const baseWidth = this.readWidth(baseVar) ?? this.options.maxWidth;
-      const existing = this.letters.find((letter) => letter.el === el);
+      const existing = previous.find((letter) => letter.el === el);
 
       return {
         el,
         baseVar,
         baseWidth,
-        width: rect.width,
         centerX: rect.left + rect.width / 2,
         currentWidth: existing?.currentWidth ?? baseWidth,
+        row: el.parentElement,
       };
     });
 
-    const avgWidth = this.letters.reduce((sum, letter) => sum + letter.width, 0) / (this.letters.length || 1);
+    const rows = new Map();
 
-    this.radius = avgWidth * this.options.radiusFactor;
+    letters.forEach((letter) => {
+      if (!rows.has(letter.row)) rows.set(letter.row, []);
+      rows.get(letter.row).push(letter);
+    });
+
+    rows.forEach((rowLetters) => {
+      const centers = rowLetters.map((letter) => letter.centerX).sort((a, b) => a - b);
+      const rowMinX = centers[0];
+      const rowMaxX = centers[centers.length - 1];
+
+      let spacingTotal = 0;
+      let spacingCount = 0;
+
+      for (let i = 1; i < centers.length; i++) {
+        const gap = centers[i] - centers[i - 1];
+
+        if (gap > 0) {
+          spacingTotal += gap;
+          spacingCount += 1;
+        }
+      }
+
+      const avgSpacing = spacingCount > 0 ? spacingTotal / spacingCount : 0;
+      const radius = avgSpacing * this.options.radiusFactor;
+
+      rowLetters.forEach((letter) => {
+        letter.rowMinX = rowMinX;
+        letter.rowMaxX = rowMaxX;
+        letter.radius = radius;
+      });
+    });
+
+    this.letters = letters;
   }
 
   readWidth(varString) {
@@ -131,14 +167,18 @@ export default class TypoBg_v2 extends Component {
 
   tick() {
     const { minWidth, maxWidth, ease } = this.options;
+    const viewportWidth = window.innerWidth || 1;
 
     this.letters.forEach((letter) => {
       let target = letter.baseWidth;
 
-      if (this.mouseX !== null && this.radius > 0) {
-        // Inverted parabola: 1 at the cursor, falling to 0 at `radius`.
-        const distance = Math.abs(this.mouseX - letter.centerX);
-        const t = clamp01(1 - (distance / this.radius) ** 2);
+      if (this.mouseX !== null && letter.radius > 0) {
+        // Map the mouse's position across the whole viewport onto this row's
+        // own letter span, then fall off (inverted parabola) around that point.
+        const fraction = clamp01(this.mouseX / viewportWidth);
+        const mappedX = letter.rowMinX + fraction * (letter.rowMaxX - letter.rowMinX);
+        const distance = Math.abs(mappedX - letter.centerX);
+        const t = clamp01(1 - (distance / letter.radius) ** 2);
 
         target = minWidth + t * (maxWidth - minWidth);
       }

@@ -21,7 +21,7 @@ $wordB = 'Horizons';
 
   <div class="
     w-full flex flex-col 
-    font-gravity text-[24vw] leading-[0.75]
+    font-gravity text-[27.5vw] leading-[0.75]
     translate-y-[2%]">
 
     <div class="flex">
@@ -34,6 +34,7 @@ $wordB = 'Horizons';
         </span> <?php
       endforeach ?>
     </div>
+
     <div class="flex">
       <?php 
       foreach (str_split($wordB) as $letter): ?>

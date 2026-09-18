@@ -513,6 +513,9 @@
   .text-\[24vw\] {
     font-size: 24vw;
   }
+  .text-\[27\.5vw\] {
+    font-size: 27.5vw;
+  }
   .leading-\[0\.75\] {
     --tw-leading: 0.75;
     line-height: 0.75;
