@@ -1,6 +1,6 @@
 {
   "name": "expanded-horizons",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "create-comp": "cd build-utils && npm run create-comp --",
