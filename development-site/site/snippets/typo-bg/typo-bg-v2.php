@@ -15,7 +15,7 @@ $wordB = 'Horizons';
     h-screen w-screen px-4 overflow-hidden
     flex flex-col justify-end items-start">
 
-  <?php 
+  <?php
   // Interactive typo //
   //////////////////////// ?>
 
