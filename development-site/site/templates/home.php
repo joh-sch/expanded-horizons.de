@@ -1,5 +1,4 @@
-<?php snippet('header', ['mainClass' => 'min-h-screen text-ink']) ?>
-
-<?php // Home content // ?>
-
-<?php snippet('footer') ?>
+<?php 
+snippet('header', ['mainClass' => 'min-h-screen text-ink']);
+snippet('info-panel/info-panel');
+snippet('footer') ?>

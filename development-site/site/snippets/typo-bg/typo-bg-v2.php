@@ -10,28 +10,20 @@ $wordB = 'Horizons';
 // Markup // ?>
 <div 
   g-component="TypoBg_v2" 
-  class      ="fixed inset-0 z-0 h-screen w-screen pb-4 overflow-hidden">
-
-  <?php
-  // Background video //
-  ////////////////////// ?>
-
-  <video
-      g-ref="video"
-      class="absolute left-0 bottom-4 z-0 h-full w-full object-contain object-bottom hidden"
-      src="<?= url('app/assets/videos/bg-typo-anim.mp4') ?>"
-      autoplay
-      muted
-      loop
-      playsinline
-      webkit-playsinline="true"
-      preload="auto"></video>
+  class      ="
+    fixed inset-0 z-0 
+    h-screen w-screen px-4 overflow-hidden
+    flex flex-col justify-end items-start">
 
   <?php 
   // Interactive typo //
   //////////////////////// ?>
 
-  <div class="w-full flex flex-col font-gravity text-[16vw]">
+  <div class="
+    w-full flex flex-col 
+    font-gravity text-[24vw] leading-[0.75]
+    translate-y-[2%]">
+
     <div class="flex">
       <?php 
       foreach (str_split($wordA) as $letter): ?>
@@ -52,6 +44,7 @@ $wordB = 'Horizons';
         </span> <?php
       endforeach ?>
     </div>
+
   </div>
 
 </div>
