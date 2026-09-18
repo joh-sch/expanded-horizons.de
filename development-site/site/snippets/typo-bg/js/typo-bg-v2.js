@@ -2,6 +2,7 @@
 //////////////////
 
 import Component from "gia/Component";
+import eventbus from "gia/eventbus";
 
 ///// Util. //////
 //////////////////
@@ -39,6 +40,7 @@ export default class TypoBg_v2 extends Component {
     this.letters = []; // { el, baseVar, baseWidth, centerX, currentWidth, rowMinX, rowMaxX, radius }
     this.mouseX = null;
     this.rafId = null;
+    this.isFrozen = false;
 
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
@@ -60,6 +62,7 @@ export default class TypoBg_v2 extends Component {
     window.removeEventListener("mousemove", this.handleMouseMove);
     document.removeEventListener("mouseleave", this.handleMouseLeave);
     window.removeEventListener("resize", this.handleResize);
+    eventbus.off("infoPanel:change", this.handleInfoPanelChange);
 
     if (this.rafId) cancelAnimationFrame(this.rafId);
   }
@@ -81,6 +84,17 @@ export default class TypoBg_v2 extends Component {
     window.addEventListener("resize", this.handleResize);
 
     this.rafId = requestAnimationFrame(this.tick);
+
+    this.setState({ enabled: true });
+    this.init_eventbus();
+  }
+
+  /// Ev.b. init. ///
+  //////////////////
+
+  init_eventbus() {
+    this.handleInfoPanelChange = this.handleInfoPanelChange.bind(this);
+    eventbus.on("infoPanel:change", this.handleInfoPanelChange);
   }
 
   // Geometry ///////
@@ -162,6 +176,10 @@ export default class TypoBg_v2 extends Component {
     this.mouseX = null;
   }
 
+  handleInfoPanelChange(event) {
+    this.isFrozen = event.open;
+  }
+
   /////////////// Loop ///////////////
   ////////////////////////////////////
 
@@ -170,6 +188,8 @@ export default class TypoBg_v2 extends Component {
     const viewportWidth = window.innerWidth || 1;
 
     this.letters.forEach((letter) => {
+      if (this.isFrozen) return; // hold the current --var values as-is
+
       let target = letter.baseWidth;
 
       if (this.mouseX !== null && letter.radius > 0) {
@@ -184,12 +204,16 @@ export default class TypoBg_v2 extends Component {
       }
 
       letter.currentWidth += (target - letter.currentWidth) * ease;
-      letter.el.style.setProperty(
-        "--var",
-        letter.baseVar.replace(/'wdth'\s*[-\d.]+/, `'wdth' ${letter.currentWidth.toFixed(1)}`)
-      );
+      letter.el.style.setProperty("--var", letter.baseVar.replace(/'wdth'\s*[-\d.]+/, `'wdth' ${letter.currentWidth.toFixed(1)}`));
     });
 
     this.rafId = requestAnimationFrame(this.tick);
+  }
+
+  // State mgmt. //
+  ////////////////////////////////////////////////
+
+  stateChange(change) {
+    console.log(change);
   }
 }
