@@ -7,6 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= esc($page->title()) ?> | <?= esc($site->title()) ?></title>
 
+  <?php // Favicon // ?>
+  <link rel="icon" href="<?= url('favicon.ico') ?>" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= url('app/assets/favicon/favicon-32x32.png') ?>">
+  <link rel="icon" type="image/png" sizes="16x16" href="<?= url('app/assets/favicon/favicon-16x16.png') ?>">
+  <link rel="apple-touch-icon" sizes="180x180" href="<?= url('app/assets/favicon/apple-touch-icon.png') ?>">
+
   <?php // Styles // ?>
   <?= css('app/styles/styles.css?v=' . EXPANDED_HORIZONS_VERSION) ?>
 </head>
