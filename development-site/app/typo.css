@@ -23,8 +23,8 @@
   .fließtext-md {
     font-family: var(--font-haas), "Helvetica", sans-serif;
     font-size: 1.1rem;
-    /* letter-spacing: -0.015em; */
     line-height: 1.175;
+    letter-spacing: 0.005em;
   }
 
   .fließtext-md p {
