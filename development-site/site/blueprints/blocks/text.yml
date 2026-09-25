@@ -11,6 +11,7 @@ tabs:
         type: writer
         inline: true
         placeholder: field.blocks.text.placeholder
+
   layout:
     label: Layout
     fields:
@@ -20,6 +21,7 @@ tabs:
         min: 0
         step: 0.1
         default: 0
+
       marginBottomUnit:
         label: Unit
         type: select
@@ -28,6 +30,16 @@ tabs:
           px: px
           rem: rem
           em: em
-          '%': '%'
+          "%": "%"
           vw: vw
           vh: vh
+
+      colCount:
+        label:
+          en: Text columns
+          de: Textspalten
+        type: number
+        min: 1
+        step: 1
+        default: 1
+        width: 1/3

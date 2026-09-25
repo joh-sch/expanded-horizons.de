@@ -20,7 +20,7 @@
 <body data-page="<?= esc($page->id(), 'attr') ?>">
 
   <?php snippet('intro-bar/intro-bar') ?>
-  <?php snippet('typo-bg/typo-bg-v2') ?>
+  <?php snippet('typo-bg/typo-bg') ?>
 
   <main
     id                  ="swup"

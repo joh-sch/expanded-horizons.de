@@ -204,16 +204,17 @@ export default class TypoBg_v2 extends Component {
       }
 
       letter.currentWidth += (target - letter.currentWidth) * ease;
-      letter.el.style.setProperty("--var", letter.baseVar.replace(/'wdth'\s*[-\d.]+/, `'wdth' ${letter.currentWidth.toFixed(1)}`));
+
+      const nextVar = letter.baseVar.replace(/'wdth'\s*[-\d.]+/, `'wdth' ${letter.currentWidth.toFixed(1)}`);
+
+      letter.el.style.setProperty("--var", nextVar);
+      // Safari doesn't repaint font-variation-settings when only the referenced custom property changes,
+      // and sometimes needs the camelCase CSSOM setter plus a forced reflow to actually take effect.
+      letter.el.style.fontVariationSettings = nextVar;
+      letter.el.style.setProperty("-webkit-font-variation-settings", nextVar);
+      void letter.el.offsetWidth;
     });
 
     this.rafId = requestAnimationFrame(this.tick);
-  }
-
-  // State mgmt. //
-  ////////////////////////////////////////////////
-
-  stateChange(change) {
-    console.log(change);
   }
 }

@@ -1,11 +1,11 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import babel from '@rollup/plugin-babel';
-import inject from '@rollup/plugin-inject';
-import terser from '@rollup/plugin-terser';
-import eslint from '@rollup/plugin-eslint';
-import { fileURLToPath } from 'url';
-import { dirname, resolve as pathResolve } from 'path';
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import babel from "@rollup/plugin-babel";
+import inject from "@rollup/plugin-inject";
+import terser from "@rollup/plugin-terser";
+import eslint from "@rollup/plugin-eslint";
+import { fileURLToPath } from "url";
+import { dirname, resolve as pathResolve } from "path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -17,9 +17,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 //   - Minify with Terser: always
 //   - Source map: in development only
 
-const isDev = process.env.NODE_ENV !== 'production';
+const isDev = process.env.NODE_ENV !== "production";
 
-const SITE = 'development-site';
+const SITE = "development-site";
 
 // ─── Export ───────────────────────────────────────────────────────────────────
 
@@ -28,8 +28,8 @@ export default {
 
   output: {
     file: `${SITE}/app/app.min.js`,
-    format: 'iife',
-    name: 'BareboneKirbyApp', // global variable name exposed by the IIFE
+    format: "iife",
+    name: "BareboneKirbyApp", // global variable name exposed by the IIFE
     sourcemap: isDev, // sourcemaps only in dev / watch mode
   },
 
@@ -47,8 +47,8 @@ export default {
     }),
     resolve({
       browser: true,
-      mainFields: ['module', 'browser', 'main'],
-      exportConditions: ['import', 'module', 'browser', 'default'],
+      mainFields: ["module", "browser", "main"],
+      exportConditions: ["import", "module", "browser", "default"],
       modulePaths: [pathResolve(__dirname, "node_modules")],
     }),
     commonjs(),
@@ -57,10 +57,10 @@ export default {
     // scoped to gia only to avoid illegal self-reassignment in regenerator-runtime itself.
     inject({
       include: /[/\\]gia[/\\]/,
-      regeneratorRuntime: ['regenerator-runtime', 'default'],
+      regeneratorRuntime: ["regenerator-runtime", "default"],
     }),
     babel({
-      babelHelpers: 'bundled',
+      babelHelpers: "bundled",
       exclude: /node_modules/,
     }),
     terser(), // minify — always

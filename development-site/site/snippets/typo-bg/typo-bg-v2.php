@@ -29,7 +29,7 @@ $wordB = 'Horizons';
       foreach (str_split($wordA) as $letter): ?>
         <span
             g-ref="letters"
-            class="[font-variation-settings:var(--var)]"
+            class="[font-variation-settings:var(--var)] will-change-[font-variation-settings] transform-gpu"
             style="--var: 'slnt' 0, 'wdth' 50, 'wght' 1000;"><?= esc($letter) ?>
         </span> <?php
       endforeach ?>
@@ -40,7 +40,7 @@ $wordB = 'Horizons';
       foreach (str_split($wordB) as $letter): ?>
         <span
             g-ref="letters"
-            class="[font-variation-settings:var(--var)]"
+            class="[font-variation-settings:var(--var)] will-change-[font-variation-settings] transform-gpu"
             style="--var: 'slnt' 0, 'wdth' 50, 'wght' 1000;"><?= esc($letter) ?>
         </span> <?php
       endforeach ?>
