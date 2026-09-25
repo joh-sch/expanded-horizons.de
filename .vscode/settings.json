@@ -1,0 +1,26 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "git add": true,
+    "git submodule": true,
+    "git commit": true,
+    "git push": true,
+    "npm install": true,
+    "git checkout": true,
+    "lsof": true
+  },
+
+  "chat.instructionsFilesLocations": {
+    "agent-rules/instructions": true
+  },
+  "chat.useAgentsMdFile": true,
+
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "emmet.includeLanguages": {
+    "php": "html"
+  }
+}
