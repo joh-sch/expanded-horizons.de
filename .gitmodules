@@ -4,3 +4,6 @@
 [submodule "tools/release"]
 	path = tools/release
 	url = https://github.com/joh-sch/release-tool.git
+[submodule "agent-rules"]
+	path = agent-rules
+	url = git@github.com:joh-sch/agent-rules.git
