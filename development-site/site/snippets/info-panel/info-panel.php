@@ -17,11 +17,11 @@
 //////////////////
 
 $optionsToRender = [];
-$info = $site->info()->toLayouts();
-$impressumPage = $kirby->page('impressum');
+$info            = $site->info()->toLayouts();
+$impressumPage   = $kirby->page('impressum');
 $dataprivacyPage = $kirby->page('dataprivacy');
-$credits = $site->credits()->toStructure();
-$footerlinks = $site->footerlinks()->toStructure();
+$credits         = $site->credits()->toStructure();
+$footerlinks     = $site->footerlinks()->toStructure();
 
 ///// Markup /////
 ////////////////// ?>
@@ -31,20 +31,21 @@ $footerlinks = $site->footerlinks()->toStructure();
     g-options  ='<?= json_encode($optionsToRender) ?>'
     class      ="group/InfoPanel relative">
 
-  <div
-      g-ref  ="backdrop"
-      class  ="fixed inset-0 z-40 pointer-events-none"
-      aria-hidden="true">
-  </div>
+  <?php snippet('info-panel/backdrop') ?>
 
   <div
-      id            ="info-panel"
-      g-ref         ="panel"
-      role          ="dialog"
-      aria-modal    ="true"
-      aria-hidden   ="true"
-      style         ="transform: translateY(calc(100% - 30px))"
-      class         ="fixed bottom-0 inset-x-4 z-50 mx-auto max-w-134 cursor-pointer rounded-2xl bg-paper px-6 py-6 shadow-lg">
+    id            ="info-panel"
+    g-ref         ="panel"
+    role          ="dialog"
+    aria-modal    ="true"
+    aria-hidden   ="true"
+    style         ="transform: translateY(calc(100% - 30px))"
+    class         ="
+      fixed bottom-0 inset-x-8 sm:inset-x-4 z-50 
+      max-w-134 mx-auto 
+      px-5.5 pt-5 pb-5.5 sm:px-6 sm:pt-5 sm:pb-6 
+      rounded-2xl
+      cursor-pointer bg-paper shadow-lg">
 
     <div g-ref="content" class="opacity-0 transition-opacity duration-666 ease-in-out">
     <?php if ($info->isNotEmpty()): ?>
@@ -134,7 +135,7 @@ $footerlinks = $site->footerlinks()->toStructure();
     <div g-ref="dataprivacyContent" class="opacity-0 transition-opacity duration-666 ease-in-out">
       <?php snippet('btns/btn', [
         'gRef'    => 'dataprivacyClose',
-        'class'   => 'absolute right-6 top-6 h-3.5 rounded-sm border border-current px-1.5',
+        'class'   => 'absolute right-6 top-6 h-4 rounded-sm border border-current px-1.5',
         'content' => '<span class="text-[10px] translate-y-[0.5px]">Close</span>',
       ]); ?>
 

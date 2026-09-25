@@ -24,9 +24,9 @@ $optionsToRender = $languageOptions ?? [];
     id         ="intro-bar"
     g-component="IntroBar"
     g-options  ='<?= esc(json_encode($optionsToRender), 'attr') ?>'
-    class      ="group/IntroBar fixed inset-x-0 top-2 z-40 flex flex-wrap items-center justify-center gap-2 px-4 text-ink">
+    class      ="group/IntroBar fixed inset-x-0 top-3 sm:top-2 z-40 flex flex-wrap items-center justify-center gap-2 px-4 text-offwhite">
 
-  <span g-ref="tagline" class="inline-block whitespace-nowrap text-[12px] font-medium sm:text-[14px] tracking-[-0.005em] opacity-100 transition-[opacity,width] duration-300 ease-in-out"><?= esc($site->tagline()) ?></span>
+  <span g-ref="tagline" class="inline-block whitespace-nowrap text-[14px] sm:text-[15px] tracking-[0.0075em] opacity-100 transition-[opacity,width] duration-300 ease-in-out"><?= esc($site->tagline()) ?></span>
 
   <div class="flex items-center justify-center gap-1">
     <?php // Info panel toggle btn. // ?>
@@ -49,7 +49,7 @@ $optionsToRender = $languageOptions ?? [];
     snippet('btns/btn', [
       'gRef'    => 'toggleBtn',
       'attrs'   => 'aria-expanded="false" aria-controls="info-panel"',
-      'class'   => 'h-3.5 rounded-sm border border-current px-1.5',
+      'class'   => 'h-4 rounded-sm border border-current px-1.5',
       'content' => $toggleBtnContent,
     ]); ?>
 
@@ -59,10 +59,10 @@ $optionsToRender = $languageOptions ?? [];
         type          ="button"
         aria-pressed  ="false"
         aria-label    ="Switch language"
-        class         ="relative flex h-3.5 shrink-0 items-center justify-center gap-0.5 overflow-hidden rounded-sm border border-current px-1_">
-      <span g-ref="langHighlight" class="absolute inset-y-0 left-0 z-0 w-1/2 translate-x-0 bg-black transition-transform duration-200 ease-in-out" aria-hidden="true"></span>
-      <span g-ref="langDe" class="relative z-10 pl-0.75 pr-0.5 text-[10px] translate-y-[0.5px] text-accent transition-colors duration-200">DE</span>
-      <span g-ref="langEn" class="relative z-10 pl-0.5 pr-0.75 text-[10px] translate-y-[0.5px] transition-colors duration-200">EN</span>
+        class         ="relative flex h-4 shrink-0 items-center justify-center gap-0.5 overflow-hidden rounded-sm border border-current">
+      <span g-ref="langHighlight" class="absolute inset-y-0 left-0 z-0 w-1/2 translate-x-0 bg-offwhite transition-transform duration-200 ease-in-out" aria-hidden="true"></span>
+      <span g-ref="langDe" class="relative z-10 pl-0.75 pr-0.5 text-[11px] sm:translate-y-[0.5px] text-accent transition-colors duration-200">DE</span>
+      <span g-ref="langEn" class="relative z-10 pl-0.5 pr-0.75 text-[11px] sm:translate-y-[0.5px] transition-colors duration-200">EN</span>
     </button>
   </div>
 
