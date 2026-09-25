@@ -12,10 +12,11 @@ $marginBottom = $b->marginBottomAmount()->or(0)->value() . $b->marginBottomUnit(
 <div class="grid grid-cols-2 gap-6">
   <?php foreach ($items as $item): ?>
       <?php $img_logo = $item->img_logo()->toFile(); ?>
+      <?php $link = $item->link()->isNotEmpty() ? $item->link()->toUrl() : null; ?>
       <?php if ($img_logo): ?>
-          <div>
+          <?= $link ? '<a href="' . $link . '" target="_blank">' : '<div>' ?>
               <img src="<?= $img_logo->url() ?>" alt="<?= $img_logo->alt() ?>">
-          </div>
+          <?= $link ? '</a>' : '</div>' ?>
       <?php endif ?>
   <?php endforeach ?>
 </div>
